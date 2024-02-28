@@ -19,6 +19,14 @@ export function App() {
         <link rel='preconnect' href={process.env.REACT_APP_API_URL} />
       </Helmet>
       <Routes>
+        {/* <Route
+          path={SiteMap.home.link}
+          element={
+            <ProtectedRoute unAuthenticatedRedirectTo={SiteMap.login.link}>
+              <Home />
+            </ProtectedRoute>
+          }
+        /> */}
         <Route path={SiteMap.home.link} element={<Home />} />
         <Route path={SiteMap.register.link} element={<Register />} />
         <Route path={SiteMap.login.link} element={<Login />} />

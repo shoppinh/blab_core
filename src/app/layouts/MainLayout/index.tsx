@@ -26,6 +26,8 @@ const CenterWrapper = styled.div`
   ${media.md`
   height: calc(100vh - ${StyleConstants.HEADER_HEIGHT}px);
   `}
+  width: 100%;
+  padding: 0 ${pxToRem(10)}rem;
 `;
 
 const Container = styled.div`

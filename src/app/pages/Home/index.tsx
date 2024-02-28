@@ -6,7 +6,7 @@ const Home = () => {
   const { t } = useTranslation();
   return (
     <MainLayout title={t('admin.home.title')} headerTitle={t('admin.home.title')}>
-      <div>Home</div>;
+      <div>s</div>
     </MainLayout>
   );
 };

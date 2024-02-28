@@ -18,7 +18,7 @@ interface NavigationIconProps {
 }
 
 const Container = styled.div`
-  height: ${pxToRem(StyleConstants.HEADER_HEIGHT)}rem;
+  height: ${StyleConstants.HEADER_HEIGHT}px;
   background-color: ${(p) => p.theme.background};
   width: 100%;
   border-bottom: ${pxToRem(1)}rem solid ${(p) => p.theme.borderLight};
@@ -41,54 +41,61 @@ const StyledIcon = styled(EIcon)<NavigationIconProps>`
 const HeaderTitle = styled.p`
   font-size: ${pxToRem(20)}rem;
   font-weight: 700;
-  padding-left: ${pxToRem(12)}rem;
+  flex: 1;
 `;
 const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: ${pxToRem(10)}rem;
+`;
+
+const ProfileTitle = styled.div`
+  font-size: ${pxToRem(20)}rem;
+  font-weight: 700;
+  flex: 1;
+  text-align: end;
 `;
 const NavigationGroup = styled.div`
-  display: none;
-  margin-top: ${pxToRem(10)}rem;
-  ${media.md`
-    display: block;
-  `}
-  padding: 0 ${pxToRem(12)}rem;
+  display: block;
+  flex: 2;
+  display: flex;
+  justify-content: space-between;
 `;
-const ButtonGroup = styled.div`
-  display: none;
-  ${media.md`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  `}
-`;
-const DesktopStyledButton = styled(NavigationButton)`
-  display: none;
-  padding-top: ${pxToRem(10)}rem;
-  ${media.md`
-    display: block;
-  `}
-`;
+
 const Header: React.FC<Props> = ({ headerTitle }) => {
   const currentUser = useSelector(getUserProfile);
   const navigationList = useMemo(() => {
     return [
       {
         id: 1,
-        url: '/dashboard',
+        url: '/',
         iconName: 'partei-home',
+        name: 'Home',
       },
       {
         id: 2,
-        url: '/chat',
+        url: '/block',
         iconName: 'partei-bubbles3',
+        name: 'Block',
       },
       {
         id: 3,
+        url: '/transactions',
+        iconName: 'partei-user',
+        name: 'Transactions',
+      },
+      {
+        id: 4,
+        url: '/transaction-pool',
+        iconName: 'partei-user',
+        name: 'Transaction Pool',
+      },
+      {
+        id: 5,
         url: '/profile',
         iconName: 'partei-user',
+        name: 'Profile',
       },
     ];
   }, []);
@@ -98,22 +105,19 @@ const Header: React.FC<Props> = ({ headerTitle }) => {
     <Container>
       <HeaderWrapper>
         <HeaderTitle>{headerTitle}</HeaderTitle>
-      </HeaderWrapper>
-      <ButtonGroup>
         <NavigationGroup>
           {navigationList.map((navigationItem) => (
             <Link to={navigationItem.url} key={navigationItem.id}>
-              <StyledIcon
+              {/* <StyledIcon
                 className={navigationItem.iconName}
                 isActive={navigationItem.url === location.pathname}
-              />
+              /> */}
+              {navigationItem.name}
             </Link>
           ))}
         </NavigationGroup>
-        <DesktopStyledButton>
-          <StyledIcon className='partei-bell' />
-        </DesktopStyledButton>
-      </ButtonGroup>
+        <ProfileTitle>{headerTitle}</ProfileTitle>
+      </HeaderWrapper>
     </Container>
   );
 };
