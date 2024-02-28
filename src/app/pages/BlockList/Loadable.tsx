@@ -1,10 +1,10 @@
 /**
- * Asynchronously loads the component for HomePage
+ * Asynchronously loads the component for BlockList
  */
 
 import { lazyLoad } from 'utils/loadable';
 
-export const Home = lazyLoad(
+export const BlockList = lazyLoad(
   () => import('./index'),
   (module) => module.default,
   {

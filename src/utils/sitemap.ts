@@ -39,6 +39,6 @@ const SiteMap = {
     link: '/register',
     isProtected: false,
   },
-}
+};
 
-export { SiteMap }
+export { SiteMap };
