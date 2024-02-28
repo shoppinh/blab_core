@@ -7,11 +7,9 @@ import { Link } from 'react-router-dom';
 import { media } from 'styles';
 import { StyleConstants } from 'styles/constants/style';
 import { pxToRem } from 'styles/theme/utils';
-import tw, { styled } from 'twin.macro';
+import { styled } from 'twin.macro';
 
 interface Props {
-  onRightBarClick: () => void;
-  onLeftBarClick: () => void;
   headerTitle: string;
 }
 
@@ -33,21 +31,13 @@ const NavigationButton = styled(EButton)`
     background-color: ${(p) => p.theme.background};
   }
 `;
-const MobileStyledButton = styled(NavigationButton)`
-  ${tw`p-3`}
-  ${media.md`
-    display: none;
-  `}
-`;
+
 const StyledIcon = styled(EIcon)<NavigationIconProps>`
   font-size: ${pxToRem(25)}rem;
   color: ${(p) => (p.isActive ? p.theme.backgroundVariant : p.theme.placeholder)};
   margin: 0 ${pxToRem(10)}rem;
 `;
-const MenuStyledIcon = styled(EIcon)`
-  font-size: ${pxToRem(20)}rem;
-  color: ${(p) => p.theme.text};
-`;
+
 const HeaderTitle = styled.p`
   font-size: ${pxToRem(20)}rem;
   font-weight: 700;
@@ -81,7 +71,7 @@ const DesktopStyledButton = styled(NavigationButton)`
     display: block;
   `}
 `;
-const Header: React.FC<Props> = ({ onRightBarClick, onLeftBarClick, headerTitle }) => {
+const Header: React.FC<Props> = ({ headerTitle }) => {
   const currentUser = useSelector(getUserProfile);
   const navigationList = useMemo(() => {
     return [
@@ -107,13 +97,7 @@ const Header: React.FC<Props> = ({ onRightBarClick, onLeftBarClick, headerTitle 
   return (
     <Container>
       <HeaderWrapper>
-        <MobileStyledButton onClick={onLeftBarClick}>
-          <MenuStyledIcon className='partei-menu' />
-        </MobileStyledButton>
         <HeaderTitle>{headerTitle}</HeaderTitle>
-        <MobileStyledButton onClick={onRightBarClick}>
-          <MenuStyledIcon className='partei-bubbles3' />
-        </MobileStyledButton>
       </HeaderWrapper>
       <ButtonGroup>
         <NavigationGroup>

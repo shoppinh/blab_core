@@ -1,10 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer } from 'utils/redux-injectors';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { SystemPayload, SystemState } from 'types/System';
+import { systemSaga } from '../sagas/system';
 
 export const initialState: SystemState = {
   data: {},
+  error: null,
+  loading: false,
 };
 
 const slice = createSlice({
@@ -25,6 +28,8 @@ export const { name, actions: systemActions, reducer } = slice;
 
 export const useSystemSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
+  useInjectSaga({ key: slice.name, saga: systemSaga });
+
   return {
     actions: systemActions,
   };

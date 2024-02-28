@@ -77,7 +77,6 @@ export function configureAppStore() {
         };
       }
 
-      // saveSessionStorage(sessionCache);
       saveDocumentCookieState(sessionCache);
 
       saveState({
@@ -95,11 +94,11 @@ export function configureAppStore() {
               : persistedStateCache?.session?.data),
           },
         },
-        config: {
+        system: {
           data: {
-            ...(store.getState().config
-              ? store.getState().config.data
-              : persistedStateCache?.config?.data),
+            ...(store.getState().system
+              ? store.getState().system.data
+              : persistedStateCache?.system?.data),
           },
         },
       });
