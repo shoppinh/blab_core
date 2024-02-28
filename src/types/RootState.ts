@@ -1,6 +1,6 @@
+import { ThemeState } from 'styles/theme/slice/types';
 import { SessionState } from './Session';
 import { SystemState } from './System';
-import { ThemeState } from './Theme';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 /*
   Because the redux-injectors injects your reducers asynchronously somewhere in your code

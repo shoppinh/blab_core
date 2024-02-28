@@ -15,7 +15,7 @@ import {
   UpdateUserQuery,
 } from 'types/Session';
 import { UserPayload } from 'types/User';
-import { createSlice } from 'utils/@reduxjs/tookit';
+import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 
 const sessionCache = loadState()?.session;

@@ -1,21 +1,20 @@
-import { Helmet } from 'react-helmet-async';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { ConstantRoles } from 'utils/constants';
-import { SiteMap } from 'utils/sitemap';
-import { Home, Register, Login, BlockList } from 'app/pages';
+import { BlockList, Home, Login, Register } from 'app/pages';
 import { ProtectedRoute } from 'app/routes';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { SiteMap } from 'utils/sitemap';
 export function App() {
   const { i18n } = useTranslation();
 
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate='%s - ParTe'
-        defaultTitle='ParTe'
+        titleTemplate='%s - eth-core'
+        defaultTitle='eth-core'
         htmlAttributes={{ lang: i18n.language }}
       >
-        <meta name='description' content='ParTe' />
+        <meta name='description' content='eth-core' />
         <link rel='dns-prefetch' href='https://www.googletagmanager.com' />
         <link rel='preconnect' href={process.env.REACT_APP_API_URL} />
       </Helmet>
