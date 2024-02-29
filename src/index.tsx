@@ -5,9 +5,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { App } from './app';
 import './index.css';
-import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './styles/GlobalStyles';
-
+// Initialize languages
+import './locales/i18n';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
@@ -25,4 +25,11 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();
+
+// Hot reloadable translation json files
+if (module.hot) {
+  module.hot.accept(['./locales/i18n'], () => {
+    // No need to render the App again because i18next works with the hooks
+  });
+}

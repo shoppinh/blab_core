@@ -1,0 +1,152 @@
+{
+  "routingFeature": {
+    "title": "Định tuyến tiêu chuẩn công nghiệp",
+    "description": "Việc muốn thêm trang là điều tự nhiên (ví dụ. `/về`) cho ứng dụng của bạn, và điều đó hoàn toàn khả thi với định tuyến."
+  },
+  "i18nFeature": {
+    "title": "i18n Quốc tế hóa & Đa dạng hóa",
+    "selectLanguage": "Chọn ngôn ngữ",
+    "description": "Những ứng dụng có thể mở rộng cần hỗ trợ nhiều ngôn ngữ, dễ dàng thêm và hỗ trợ đa ngôn ngữ/ Hãy thử thay đổi ngôn ngữ bên dưới và xem cách ứng dụng cập nhật trang  ngay lập tức mà không cần tải lại."
+  },
+  "feedbackFeature": {
+    "title": "Phản hồi tức thì",
+    "description": "Tận hưởng DX tốt nhất và viết ứng dụng của bạn với tốc độ suy nghĩ! Các thay đổi của bạn được lưu vào CSS và JS được phản ánh ngay lập tức mà không cần làm mới trang."
+  },
+  "scaffoldingFeature": {
+    "title": "Sườn ứng dụng nhanh chóng",
+    "description": "Tự động tạo các thành phần, tính năng, định tuyến, các bộ chọn and sagas - và các kiểm tra cho chúng - ngay trừ CLI! Tránh việc dính vào sự đấu tranh về mã và tập trung vào ứng dụng của bạn!"
+  },
+  "header": {
+    "searchPlaceHolder": "Tìm kiếm..."
+  },
+  "footer": {
+    "termsAndCondition": "Điều khoản và điều kiện",
+    "privacyPolicy": "Chính sách bảo mật",
+    "poweredByHeineken": "© {{year}} Bản quyền của Công ty TNHH Nhà Máy Bia HEINEKEN Việt Nam. Bảo hộ mọi quyền.",
+    "address": "Địa chỉ: Tầng 18 và 19, tòa nhà Vietcombank, số 5 Công trường Mê Linh, Phường Bến Nghé, Quận 1, Thành Phố Hồ Chí Minh",
+    "hotline": "Tổng đài hỗ trợ: {{phone}} – Email: {{email}}",
+    "certificateHeineken": "Giấy chứng nhận Đăng ký Doanh nghiệp số 0300831132 do Sở Kế hoạch và Đầu tư Thành phố Hồ Chí Minh cấp ngày 24/10/2008."
+  },
+  "sidebar": {
+    "chatWithViaZalo": "Trò chuyện qua Zalo"
+  },
+  "termsAndConditions": {
+    "title": "Điều khoản và điều kiện",
+    "mobileUrl": "/static/termsConditions/vi.html"
+  },
+  "privacyPolicy": {
+    "title": "Chính sách bảo mật",
+    "mobileUrl": "/static/privacyPolicy/vi.html"
+  },
+  "input": {
+    "pleaseEnter": "Vui lòng nhập {{label}}",
+    "cannotBeBlank": "{{label}} không được để trống",
+    "pleaseFillInTheCorrectFormat": "Vui lòng điền đúng định dạng",
+    "phoneNumberFormatError": "Số điện thoại chỉ có thể có 10 chữ số.",
+    "passwordFormatError": "Mật khẩu chỉ được có ít nhất 8 ký tự, 1 chữ hoa, 1 chữ thường, 1 chữ số.",
+    "enter": "Nhập {{label}}",
+    "pleaseSelect": "Vui lòng chọn {{label}}"
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "login": "Đăng nhập",
+    "loginToViewHistory": "Đăng nhập vô MuaNgay để xem lịch sử đặt hàng của bạn.",
+    "dontHaveAnAccountYet": "Chưa có tài khoản?",
+    "registerHere": "Đăng ký tại đây.",
+    "password": "Mật khẩu",
+    "mobilePhoneNumber": "Số điện thoại",
+    "forgotPassword": "Quên mật khẩu?",
+    "register": "Đăng ký",
+    "rememberMe": "Lưu tài khoản",
+    "loginToChatWithOutlet": "Đăng nhập để chat với cửa hàng",
+    "notYetRegisteredRegisterHere": "Chưa có tài khoản? <1>Tạo tài khoản</1> để chat với cửa hàng.",
+    "accountHasBeenDeactivated": "Tài khoản của bạn đã bị hủy kích hoạt. Vui lòng liên hệ với người quản trị trang web của bạn",
+    "goBackToLogin": "Quay lại trang đăng nhập",
+    "forgotPasswordInstruction": "Liên hệ với người quản trị trang web của bạn để lấy lại mật khẩu. Đây là số diện thoại của quản trị viên: <0>{{phoneNumber}}</0>."
+
+  },
+  "logout": {
+    "title": "Đăng xuất"
+  },
+  "form": {
+    "emailOrPhone": "Email hoặc số điện thoại",
+    "password": "Mật khẩu",
+    "title": "Tiêu đề",
+    "content": "Nội dung",
+    "description": "Mô tả",
+    "type": "Loại",
+    "frequentMark": "Điểm thường xuyên",
+    "middleExamMark": "Điểm giữa kỳ",
+    "finalExamMark": "Điểm cuối kỳ",
+    "averageMark": "Điểm trung bình",
+    "semester": "Học kỳ",
+    "year": "Năm học",
+    "add": "Thêm",
+    "save": "Lưu",
+    "student": "Học sinh",
+    "subject": "Môn học",
+    "assessment": "Đánh giá",
+    "name": "Họ và tên",
+    "age": "Tuổi",
+    "gender": "Giới tính",
+    "relationship": "Mối quan hệ",
+    "childrenDetailTitle": "Thông tin con cái",
+    "addChildrenTitle": "Thêm mới con cái",
+    "assignStudentTitle": "Phân lớp học sinh",
+    "studentDetailTitle": "Thông tin học sinh",
+    "addStudentTitle": "Thêm mới học sinh",
+    "sendInvitation": "Gửi lời mời",
+    "email": "Email",
+    "start": "Bắt đầu",
+    "end": "Kết thúc",
+    "participants": "Người tham gia",
+    "lastName": "Họ",
+    "firstName": "Tên",
+    "username": "Tên người dùng",
+    "role": "Quyền",
+    "fullName": "Tên đầy đủ",
+    "isSchoolClass": "Lớp toàn trường",
+    "isPrivateClass": "Lớp riêng",
+    "isActive": "Đang hoạt động",
+    "address": "Địa chỉ",
+    "job": "Nghề nghiệp",
+    "parentId": "Phụ huynh",
+    "degree": "Trình độ",
+    "class": "Lớp",
+    "teacher": "Giáo viên",
+    "isClassAdmin": "Là giáo viên chủ nhiệm",
+    "phoneNumber": "Số điện thoại",
+    "exportStudentCardTitle": "Xuất bảng điểm của học sinh"
+  },
+  "register": {
+    "title": "Tạo tài khoản",
+    "createAccount": "Tạo tài khoản",
+    "accountCreated": "Tài khoản đã được tạo",
+    "name": "Họ và tên",
+    "login": "Đăng nhập",
+    "agreeTCAndPP": "Tôi đồng ý với <1>{{TC}}</1> và <3>{{privacyPolicy}}</3>",
+    "TC": "T&C",
+    "privacyPolicy": "Chính sách bảo mật",
+    "mobilePhoneNumber": "Số điện thoại",
+    "accountHasBeenCreated": "Tài khoản đã được tạo.",
+    "mobileAlreadyExists": "Số điện thoại đã tồn tại, bạn có thể đăng nhập với số điện thoại này.",
+    "IconfirmThatIam18yearsOfAge": "Tôi xác nhận rằng tôi 18 tuổi"
+  },
+  "home": {
+    "title": "Trang chủ",
+    "areYouMoreThan18YearsOld": "Bạn đã đủ 18 tuổi chưa?",
+    "ihaveReadAndAcceptTheTCAndPP": "Tôi đã đọc và chấp nhập <1>Các điều khoản & điều kiện</1> và <3>Chính sách bảo mật.</3>",
+    "yes": "Có",
+    "no": "Không",
+    "umenuLogo": "MuaNgay Logo",
+    "gotit": "Đã hiểu",
+    "outletInDifferentCity": "Xin chào! Cửa hàng của chúng tôi chỉ giao hàng trong {{city}}"
+  },
+  "localizationConfig": {
+    "title": "Đổi ngôn ngữ",
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh",
+    "selectLanguage": "Chọn ngôn ngữ",
+    "language": "Ngôn ngữ"
+  }
+}

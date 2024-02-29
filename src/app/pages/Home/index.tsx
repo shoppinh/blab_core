@@ -1,12 +1,13 @@
 import { MainLayout } from 'app/layouts';
-import React from 'react';
+import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const { t } = useTranslation();
+  console.log('🚀 ~ Home ~ t:', t('routingFeature.titless'));
   return (
-    <MainLayout title={t('admin.home.title')} headerTitle={t('admin.home.title')}>
-      <div>s</div>
+    <MainLayout title={t('home.title')} headerTitle={t('home.title')}>
+      <div>{t('home.title') as ReactNode}</div>
     </MainLayout>
   );
 };

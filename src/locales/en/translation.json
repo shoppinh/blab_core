@@ -1,0 +1,150 @@
+{
+  "routingFeature": {
+    "title": "Industry-standard Routing",
+    "description": "It's natural to want to add pages (e.g. `/about`) to your application, and routing makes this possible."
+  },
+  "i18nFeature": {
+    "title": "i18n Internationalization & Pluralization",
+    "selectLanguage": "Select Language",
+    "description": "Scalable apps need to support multiple languages, easily add and support multiple languages. Change the language below to see how instantly it updates the page without refreshing."
+  },
+  "feedbackFeature": {
+    "title": "Instant Feedback",
+    "description": "Enjoy the best DX and code your app at the speed of thought! Your saved changes to the CSS and JS are reflected instantaneously without refreshing the page."
+  },
+  "scaffoldingFeature": {
+    "title": "Quick Scaffolding",
+    "description": "Automate the creation of components, features, routes, selectors and sagas - and their tests - right from the CLI! Avoid fighting the glue of your code and focus on your app!"
+  },
+  "header": {
+    "searchPlaceHolder": "Search..."
+  },
+  "footer": {
+    "termsAndCondition": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "poweredByHeineken": "© {{year}} Copyright HEINEKEN Vietnam Brewery Limited Company. All Rights Reserved.",
+    "address": "Address: 18 & 19 Floors, Vietcombank Tower, No.5, Me Linh Square, Ben Nghe Ward, District 1, Ho Chi Minh City, Vietnam",
+    "hotline": "Hotline: {{phone}} – Email: {{email}}",
+    "certificateHeineken": "Business Registration Certificate No. 0300831132 by the Department of Planning and Investment of Ho Chi Minh City on October 24, 2008."
+  },
+  "sidebar": {
+    "chatWithViaZalo": "Chat with via Zalo"
+  },
+  "termsAndConditions": {
+    "title": "Terms & Conditions",
+    "mobileUrl": "/static/termsConditions/en.html"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "mobileUrl": "/static/privacyPolicy/en.html"
+  },
+  "input": {
+    "pleaseEnter": "Please enter {{label}}",
+    "cannotBeBlank": "{{label}} cannot be blank",
+    "pleaseFillInTheCorrectFormat": "Please fill in the correct format",
+    "phoneNumberFormatError": "Phone number can only be 10 digits.",
+    "passwordFormatError": "Password can only be at least 8 characters, 1 upper case, 1 lower case, 1 numeric.",
+    "enter": "Enter {{label}}",
+    "pleaseSelect": "Please select {{label}}"
+  },
+  "login": {
+    "title": "Login",
+    "login": "Login",
+    "loginToViewHistory": "Login to the MuaNgay to view your orders history.",
+    "dontHaveAnAccountYet": "Don’t have an account yet?",
+    "registerHere": "Register here.",
+    "password": "Password",
+    "mobilePhoneNumber": "Mobile phone number",
+    "forgotPassword": "Forgot password?",
+    "register": "Register",
+    "rememberMe": "Remember me",
+    "loginToChatWithOutlet": "Login to chat with outlet",
+    "notYetRegisteredRegisterHere": "Not yet registered? <1>Register here</1> to access chat and more.",
+    "accountHasBeenDeactivated": "Your account has been deactivated. Please contact your site administrator",
+    "goBackToLogin": "Go back to login",
+    "forgotPasswordInstruction": "Contact your site administrator to reset your password. This is the phone of your site administrator: <0>{{phoneNumber}}</0>"
+  },
+  "form": {
+    "emailOrPhone": "Email or phone number",
+    "password": "Password",
+    "title": "Title",
+    "content": "Content",
+    "description": "Description",
+    "frequentMark": "Frequent mark",
+    "middleExamMark": "Middle exam",
+    "finalExamMark": "Final exam",
+    "averageMark": "Average mark",
+    "semester": "Semester",
+    "year": "Year",
+    "add": "Add",
+    "save": "Save",
+    "student": "Student",
+    "subject": "Subject",
+    "assessment": "Assessment",
+    "name": "Name",
+    "age": "Age",
+    "gender": "Gender",
+    "relationship": "Relationship",
+    "childrenDetailTitle": "Children Detail",
+    "studentDetailTitle": "Student Detail",
+    "addStudentTitle": "Add Student",
+    "addChildrenTitle": "Add Children",
+    "assignStudentTitle": "Assign Student",
+    "sendInvitation": "Send Invitation",
+    "email": "Email",
+    "start": "Start",
+    "end": "End",
+    "participants": "Participants",
+    "lastName": "Last Name",
+    "firstName": "First Name",
+    "username": "Username",
+    "role": "Role",
+    "fullName": "Full Name",
+    "isSchoolClass": "School Class",
+    "isPrivateClass": "Private Class",
+    "isActive": "Active",
+    "address": "Address",
+    "job": "Job",
+    "parentId": "Parent",
+    "degree": "Degree",
+    "class": "Class",
+    "teacher": "Teacher",
+    "isClassAdmin": "Class Admin",
+    "phoneNumber": "Phone Number",
+    "exportStudentCardTitle": "Export Student Card"
+  },
+  "logout": {
+    "title": "Logout"
+  },
+  "register": {
+    "title": "Create Account",
+    "createAccount": "Create Account",
+    "accountCreated": "Account Created",
+    "name": "Name",
+    "login": "Login",
+    "agreeTCAndPP": "I agree to the <1>{{TC}}</1> and <3>{{privacyPolicy}}</3>",
+    "TC": "T&C",
+    "privacyPolicy": "Privacy Policy",
+    "mobilePhoneNumber": "Mobile phone number",
+    "accountHasBeenCreated": "Account has been created.",
+    "mobileAlreadyExists": "Mobile already exists, you can login with this number.",
+    "IconfirmThatIam18yearsOfAge": "I confirm that I am 18 years of age"
+  },
+  "home": {
+    "title": "Home",
+    "areYouMoreThan18YearsOld": "Are you more than 18 years old?",
+    "ihaveReadAndAcceptTheTCAndPP": "I have read and accept the <1>Terms & Conditions</1> and <3>Privacy Policy.</3>",
+    "yes": "Yes",
+    "no": "No",
+    "umenuLogo": "MuaNgay Logo",
+    "gotit": "Got it",
+    "outletInDifferentCity": "Hello! Our outlet offers delivery in {{city}} only"
+  },
+  "localizationConfig": {
+    "title": "Switch Language",
+    "vi": "Vietnamese",
+    "en": "English",
+    "selectLanguage": "Select Language",
+    "language": "Language"
+  }
+}
