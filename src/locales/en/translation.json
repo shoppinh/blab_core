@@ -146,5 +146,27 @@
     "en": "English",
     "selectLanguage": "Select Language",
     "language": "Language"
+  },
+  "profile": {
+    "title": "Profile"
+  },
+  "table": {
+    "blockNumber": "Block Number",
+    "hash": "Hash",
+    "miner": "Miner",
+    "mined": "Mined",
+    "txCount": "Tx Count",
+    "sent": "Sent",
+    "totale": "Total"
+  },
+  "transactions": {
+    "title": "Transactions"
+  },
+  "txPool": {
+    "title": "Transaction Pool"
+  
+  },
+  "blockDetail": {
+    "title": "Block Detail"
   }
 }

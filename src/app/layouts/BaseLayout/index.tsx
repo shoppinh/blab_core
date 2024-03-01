@@ -14,7 +14,7 @@ interface Props {
 const Container = styled.div`
   ${tw`h-screen`}
   overflow: auto;
-  background-color: ${(p) => p.theme.backgroundVariant};
+  background-color: ${(p) => p.theme.background};
   display: flex;
   align-items: center;
   justify-content: center;

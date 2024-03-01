@@ -137,10 +137,7 @@
     "areYouMoreThan18YearsOld": "Bạn đã đủ 18 tuổi chưa?",
     "ihaveReadAndAcceptTheTCAndPP": "Tôi đã đọc và chấp nhập <1>Các điều khoản & điều kiện</1> và <3>Chính sách bảo mật.</3>",
     "yes": "Có",
-    "no": "Không",
-    "umenuLogo": "MuaNgay Logo",
-    "gotit": "Đã hiểu",
-    "outletInDifferentCity": "Xin chào! Cửa hàng của chúng tôi chỉ giao hàng trong {{city}}"
+    "no": "Không"  
   },
   "localizationConfig": {
     "title": "Đổi ngôn ngữ",
@@ -148,5 +145,27 @@
     "en": "Tiếng Anh",
     "selectLanguage": "Chọn ngôn ngữ",
     "language": "Ngôn ngữ"
+  },
+  "profile": {
+    "title": "Hồ sơ"
+  },
+  "table": {
+    "blockNumber": "Số khối",
+    "hash": "Hash",
+    "miner": "Người đào",
+    "mined": "Đã đào",
+    "txCount": "Số giao dịch",
+    "sent": "Gửi",
+    "totale": "Tổng cộng"
+  },
+  "transactions": {
+    "title": "Giao dịch"
+  },
+  "txPool": {
+    "title": "Bể chứa giao dịch"
+  
+  },
+  "blockDetail": {
+    "title": "Chi tiết khối"
   }
 }

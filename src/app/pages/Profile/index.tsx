@@ -1,13 +1,13 @@
 import { MainLayout } from 'app/layouts';
 import { useTranslation } from 'react-i18next';
 
-const Home = () => {
+const Profile = () => {
   const { t } = useTranslation();
   return (
-    <MainLayout title={t('home.title')} headerTitle={t('home.title')}>
-      <div>Home</div>
+    <MainLayout title={t('profile.title')} headerTitle={t('profile.title')}>
+      <div>Profile</div>
     </MainLayout>
   );
 };
 
-export default Home;
+export default Profile;

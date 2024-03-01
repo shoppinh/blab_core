@@ -1,4 +1,13 @@
-import { BlockList, Home, Login, Register } from 'app/pages';
+import {
+  BlockDetail,
+  BlockList,
+  Login,
+  NotFound,
+  Profile,
+  Register,
+  TransactionPool,
+  Transactions,
+} from 'app/pages';
 import { ProtectedRoute } from 'app/routes';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -27,17 +36,16 @@ export function App() {
             </ProtectedRoute>
           }
         /> */}
-        <Route path={SiteMap.home.link} element={<Home />} />
+        <Route path={SiteMap.home.link} element={<BlockList />} />
         <Route path={SiteMap.register.link} element={<Register />} />
         <Route path={SiteMap.login.link} element={<Login />} />
-        <Route
-          path={SiteMap.blockList.link}
-          element={
-            <ProtectedRoute unAuthenticatedRedirectTo={SiteMap.login.link}>
-              <BlockList />
-            </ProtectedRoute>
-          }
-        />
+        <Route path={SiteMap.blockDetail.link} element={<BlockDetail />} />
+        <Route path={SiteMap.transactions.link} element={<Transactions />} />
+        <Route path={SiteMap.transactionPool.link} element={<TransactionPool />} />
+        <Route path={SiteMap.profile.link} element={<Profile />} />
+        {/* <Route path={SiteMap.blockDetail.link} element={<BlockDetail />} />
+        <Route path={SiteMap.blockList.link} element={<BlockList />} /> */}
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

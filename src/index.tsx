@@ -4,7 +4,8 @@ import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { App } from './app';
-import './index.css';
+// import './index.css';
+import { ThemeProvider } from 'styles/theme/ThemeProvider';
 import GlobalStyles from './styles/GlobalStyles';
 // Initialize languages
 import './locales/i18n';
@@ -12,12 +13,14 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HelmetProvider>
-        <>
-          <App />
-          <GlobalStyles />
-        </>
-      </HelmetProvider>
+      <ThemeProvider>
+        <HelmetProvider>
+          <>
+            <App />
+            <GlobalStyles />
+          </>
+        </HelmetProvider>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );

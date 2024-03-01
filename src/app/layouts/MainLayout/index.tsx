@@ -15,7 +15,7 @@ interface Props {
 const Center = styled.div`
   ${tw`flex-1`}
   height: 100%;
-  background-color: ${(p) => p.theme.backBackground};
+  background-color: ${(p) => p.theme.background};
 `;
 const MainContent = styled.div`
   ${tw`flex-1`}
