@@ -9,14 +9,19 @@ const SiteMap = {
     link: '/block-detail',
     isProtected: true,
   },
-  transactions: {
-    title: 'transactions.title',
-    link: '/transactions',
+  transaction: {
+    title: 'transaction.title',
+    link: '/transaction',
     isProtected: true,
   },
   transactionPool: {
     title: 'transactionPool.title',
     link: '/transaction-pool',
+    isProtected: true,
+  },
+  transactionDetail: {
+    title: 'transactionDetail.title',
+    link: '/transaction-detail',
     isProtected: true,
   },
   profile: {

@@ -7,3 +7,11 @@ export interface BlockListItem {
   total: number;
   sent: string;
 }
+
+export interface TransactionItem {
+  txHash: string;
+  from: string;
+  to: string;
+  value: number;
+  date: string;
+}

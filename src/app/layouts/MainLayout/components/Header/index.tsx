@@ -69,9 +69,9 @@ const Header: React.FC<Props> = ({ headerTitle }) => {
       },
       {
         id: 2,
-        url: '/transactions',
+        url: '/transaction',
         iconName: 'partei-user',
-        name: 'Transactions',
+        name: 'Transaction',
       },
       {
         id: 3,

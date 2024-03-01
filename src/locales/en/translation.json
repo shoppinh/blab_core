@@ -157,14 +157,27 @@
     "mined": "Mined",
     "txCount": "Tx Count",
     "sent": "Sent",
-    "totale": "Total"
+    "total": "Total",
+    "next": "Next",
+    "previous": "Previous",
+    "txHash": "Tx Hash",
+    "from": "From",
+    "to": "To",
+    "value": "Value",
+    "date": "Date"
   },
-  "transactions": {
-    "title": "Transactions"
+  "transaction": {
+    "title": "Transaction",
+    "data": "Data",
+    "to": "To",
+    "send": "Send"
+  },
+  "transactionDetail": {
+    "title": "Transaction Detail"
   },
   "txPool": {
-    "title": "Transaction Pool"
-  
+    "title": "Transaction Pool",
+    "mine": "Mine"
   },
   "blockDetail": {
     "title": "Block Detail"

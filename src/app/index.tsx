@@ -6,7 +6,8 @@ import {
   Profile,
   Register,
   TransactionPool,
-  Transactions,
+  Transaction,
+  TransactionDetail,
 } from 'app/pages';
 import { ProtectedRoute } from 'app/routes';
 import { Helmet } from 'react-helmet-async';
@@ -40,9 +41,10 @@ export function App() {
         <Route path={SiteMap.register.link} element={<Register />} />
         <Route path={SiteMap.login.link} element={<Login />} />
         <Route path={SiteMap.blockDetail.link} element={<BlockDetail />} />
-        <Route path={SiteMap.transactions.link} element={<Transactions />} />
+        <Route path={SiteMap.transaction.link} element={<Transaction />} />
         <Route path={SiteMap.transactionPool.link} element={<TransactionPool />} />
         <Route path={SiteMap.profile.link} element={<Profile />} />
+        <Route path={SiteMap.transactionDetail.link} element={<TransactionDetail />} />
         {/* <Route path={SiteMap.blockDetail.link} element={<BlockDetail />} />
         <Route path={SiteMap.blockList.link} element={<BlockList />} /> */}
         <Route path='*' element={<NotFound />} />

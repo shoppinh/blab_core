@@ -156,10 +156,23 @@
     "mined": "Đã đào",
     "txCount": "Số giao dịch",
     "sent": "Gửi",
-    "totale": "Tổng cộng"
+    "total": "Tổng cộng",
+    "next": "Sau",
+    "previous": "Trước",
+    "txHash": "Tx Hash",
+    "from": "Từ",
+    "to": "Đến",
+    "value": "Giá trị",
+    "date": "Ngày"
   },
-  "transactions": {
-    "title": "Giao dịch"
+  "transaction": {
+    "title": "Giao dịch",
+    "to": "Đến",
+    "data": "Dữ liệu",
+    "send": "Gửi"
+  },
+  "transactionDetail": {
+    "title": "Chi tiết giao dịch"
   },
   "txPool": {
     "title": "Bể chứa giao dịch"
