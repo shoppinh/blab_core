@@ -1,4 +1,6 @@
+import { EButton } from 'app/components';
 import { MainLayout } from 'app/layouts';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { pxToRem } from 'styles/theme/utils';
@@ -17,14 +19,24 @@ const Container = styled.div`
 const SectionInfo = styled.div`
   font: 400 ${pxToRem(18)}rem / ${pxToRem(24)}rem ${(p) => p.theme.fontFamily};
   width: 100%;
-  text-align: center;
+  /* text-align: center; */
 `;
 
-const WalletDetailSection = styled.div``;
+const WalletDetailSection = styled.div`
+  flex: 1;
+`;
 
 const HistoryDetailSection = styled.div``;
 const SectionDetailInfo = styled.div`
   margin: ${pxToRem(10)}rem 0;
+`;
+
+const PrivateKeySection = styled.div`
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: ${pxToRem(10)}rem;
+  width: 100%;
 `;
 
 const HistoryDetailInfo = styled.div`
@@ -33,6 +45,19 @@ const HistoryDetailInfo = styled.div`
   &:hover {
     cursor: pointer;
     text-decoration: underline;
+  }
+`;
+
+const ShowButton = styled(EButton)`
+  font: 400 ${pxToRem(14)}rem / ${pxToRem(20)}rem ${(p) => p.theme.fontFamily};
+  color: ${(p) => p.theme.text};
+  background-color: ${(p) => p.theme.background};
+  border: 1px solid ${(p) => p.theme.text};
+  padding: ${pxToRem(2)}rem ${pxToRem(10)}rem;
+
+  &:hover {
+    background-color: ${(p) => p.theme.text};
+    color: ${(p) => p.theme.background};
   }
 `;
 
@@ -45,12 +70,19 @@ const Profile = () => {
     '0XANasdmaASasdasdasdasdmasdasdjkawjdkww',
   ];
   const navigate = useNavigate();
+  const privateKey = 'asdas xcvzxassfcasc';
+  const [isShowPrivateKey, setIsShowPrivateKey] = useState(false);
   return (
     <MainLayout title={t('profile.title')} headerTitle={t('profile.title')}>
       <Container>
         <WalletDetailSection>
           <SectionInfo>Wallet</SectionInfo>
-          <SectionDetailInfo>Private key: </SectionDetailInfo>
+          <PrivateKeySection>
+            <SectionDetailInfo>{`Private key: ${isShowPrivateKey ? privateKey : Array.from(privateKey).fill('*').join('')}`}</SectionDetailInfo>
+            <ShowButton variant='primary' onClick={() => setIsShowPrivateKey(!isShowPrivateKey)}>
+              {isShowPrivateKey ? 'Hide' : 'Show'} private key
+            </ShowButton>
+          </PrivateKeySection>
           <SectionDetailInfo>Public key: 0x0efkjaskfkasjd</SectionDetailInfo>
           <SectionDetailInfo>Address: 0xasdihajskd</SectionDetailInfo>
           <SectionDetailInfo>Balance: 100 BLAB</SectionDetailInfo>
