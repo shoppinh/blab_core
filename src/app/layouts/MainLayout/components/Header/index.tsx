@@ -1,4 +1,4 @@
-import { getUserProfile } from 'app/store/selectors/session';
+import { getUserProfile } from 'store/selectors/session';
 import React, { ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';

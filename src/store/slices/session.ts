@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { loadDocumentCookieState } from 'app/store/cookieHandle';
-import { loadState } from 'app/store/localStorage';
-import { sessionSaga } from 'app/store/sagas/session';
+import { loadDocumentCookieState } from 'store/cookieHandle';
+import { loadState } from 'store/localStorage';
+import { sessionSaga } from 'store/sagas/session';
 import {
   AuthPayLoad,
   AuthQuery,

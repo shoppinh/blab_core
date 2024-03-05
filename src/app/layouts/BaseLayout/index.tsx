@@ -1,6 +1,6 @@
 import { EToast } from 'app/components';
-import { getSystemSettings } from 'app/store/selectors/system';
-import { useSystemSlice } from 'app/store/slices/system';
+import { getSystemSettings } from 'store/selectors/system';
+import { useSystemSlice } from 'store/slices/system';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';

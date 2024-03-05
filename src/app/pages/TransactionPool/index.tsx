@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
-import { TransactionItem } from 'types/Block';
+import { TransactionItem } from 'types/Transaction';
 import { ROWS_PER_PAGE } from 'utils/constants';
 import { useTable } from 'utils/hooks';
 

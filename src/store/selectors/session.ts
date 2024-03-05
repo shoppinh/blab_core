@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from 'types';
-import { initialState } from 'app/store/slices/session';
+import { initialState } from 'store/slices/session';
 
 // First select the relevant part from the state
 const selectDomain = (state: RootState) => state?.session ?? initialState;

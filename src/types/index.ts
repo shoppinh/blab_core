@@ -1,6 +1,6 @@
 import { RootState } from './RootState';
 import { ConstantRoles } from '../utils/constants';
-export interface LayoutProps {}
+// export interface LayoutProps {}
 
 export type ProtectedRouteProps = {
   children: JSX.Element;
