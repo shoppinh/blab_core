@@ -1,4 +1,4 @@
-import { BlockState } from 'types/Block';
+import { BlockQuery, BlockState } from 'types/Block';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { blockSaga } from '../sagas/block';
@@ -13,7 +13,7 @@ const slice = createSlice({
   name: 'block',
   initialState,
   reducers: {
-    doFetchBlocks(state, _action) {
+    doFetchBlocks(state) {
       state.loading = true;
       state.error = null;
     },
@@ -24,7 +24,7 @@ const slice = createSlice({
       };
       state.loading = false;
     },
-    doFetchBlock(state, _action) {
+    doFetchBlock(state, _action: { payload: BlockQuery }) {
       state.loading = true;
       state.error = null;
     },

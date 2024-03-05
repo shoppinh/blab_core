@@ -10,11 +10,19 @@ export function* walletSaga() {
   ]);
 }
 
+export function mapKeyPairData(data: any) {
+  return {
+    privateKey: data.private_key,
+    publicKey: data.public_key,
+    address: data.address,
+  };
+}
+
 export function* generateKeyPairSaga(): Generator<any, void, any> {
   try {
     const res = yield call(apiGenerateKeyPair);
     if (res?.data) {
-      yield put(actions.doGeneratedKeyPair(res.data));
+      yield put(actions.doGeneratedKeyPair(mapKeyPairData(res.data.data)));
     } else {
       yield put(actions.Error('Error generating key pair'));
     }
@@ -28,7 +36,7 @@ export function* fetchBalanceSaga({
   try {
     const res = yield call(apiGetBalance, payload);
     if (res?.data) {
-      yield put(actions.doFetchedBalance(res.data));
+      yield put(actions.doFetchedBalance(res.data.data));
     } else {
       yield put(actions.Error('Error fetching balance'));
     }

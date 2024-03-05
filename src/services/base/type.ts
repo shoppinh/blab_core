@@ -30,17 +30,17 @@ export const APIs = {
     // forgetSetPassword: '/api/user/forgetSetPassword',
   },
   block: {
-    getBlocks: '/api/block/',
-    getBlock: '/api/block/{blockNumber}',
-    mine: '/api/block/mine',
+    getBlocks: '/block/',
+    getBlock: '/block/{blockNumber}',
+    mine: '/block/mine',
   },
   transaction: {
-    createTransaction: '/api/transaction/',
-    signTransaction: '/api/transaction/sign',
-    getTransactionPool: '/api/transaction/pool',
+    createTransaction: '/transaction/',
+    signTransaction: '/transaction/sign',
+    getTransactionPool: '/transaction/pool',
   },
   wallet: {
-    generateKeyPair: '/api/wallet/',
-    getBalance: '/api/wallet/balance/{address}',
+    generateKeyPair: '/wallet/',
+    getBalance: '/wallet/balance/{address}',
   },
 };

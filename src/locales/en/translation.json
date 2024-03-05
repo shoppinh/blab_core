@@ -175,11 +175,17 @@
   "transactionDetail": {
     "title": "Transaction Detail"
   },
-  "txPool": {
+  "transactionPool": {
     "title": "Transaction Pool",
     "mine": "Mine"
   },
+  "blockList": {
+    "title": "Block List"
+  },
   "blockDetail": {
     "title": "Block Detail"
+  },
+  "common": {
+    "noDataToShow": "No data to show"
   }
 }

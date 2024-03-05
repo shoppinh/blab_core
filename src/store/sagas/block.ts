@@ -2,7 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { blockActions as actions } from '../slices/block';
 import { apiGetBlock, apiGetBlocks, apiMineBlock } from 'services/api/apiHelper';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { BlockQuery, MineBlockQuery } from 'types/Block';
+import { BlockListItem, BlockQuery, MineBlockQuery } from 'types/Block';
 export function* blockSaga() {
   yield all([
     takeLatest(actions.doFetchBlocks, fetchBlocksSaga),
@@ -11,11 +11,33 @@ export function* blockSaga() {
   ]);
 }
 
+export function mapBlocks(blocks: any[]): BlockListItem[] {
+  return blocks.map((block) => {
+    return mapBlock(block);
+  });
+}
+
+export function mapBlock(block: any): BlockListItem {
+  return {
+    blockNumber: block.block_number,
+    hash: block.hash,
+    miner: block.miner,
+    mined: block.mined,
+    total: block.total,
+    sent: block.sent,
+    binary: block.binary,
+    nonce: block.nonce,
+    difficulty: block.difficulty,
+    parentHash: block.parent_hash,
+    transactions: block.transactions,
+  };
+}
+
 export function* fetchBlocksSaga(): Generator<any, void, any> {
   try {
     const res = yield call(apiGetBlocks);
     if (res?.data) {
-      yield put(actions.doFetchedBlocks(res.data));
+      yield put(actions.doFetchedBlocks(mapBlocks(res.data.data.blocks)));
     } else {
       yield put(actions.Error('Error fetching blocks'));
     }
@@ -27,7 +49,7 @@ export function* fetchBlockSaga({ payload }: PayloadAction<BlockQuery>): Generat
   try {
     const res = yield call(apiGetBlock, payload);
     if (res?.data) {
-      yield put(actions.doFetchedBlock(res.data));
+      yield put(actions.doFetchedBlock(mapBlock(res.data.data)));
     } else {
       yield put(actions.Error('Error fetching block'));
     }
@@ -41,7 +63,7 @@ export function* mineBlockSaga({
   try {
     const res = yield call(apiMineBlock, payload);
     if (res?.data) {
-      yield put(actions.doMinedBlock(res.data));
+      yield put(actions.doMinedBlock(res.data.data));
     } else {
       yield put(actions.Error('Error mining block'));
     }

@@ -13,7 +13,7 @@ const range = (start: number, end: number): Array<number> => {
 
 const DOTS = '...';
 
-const useTable = (
+export const useTable = (
   totalItems: number,
   columns: ColumnProps[],
   rowsPerPage: number,
@@ -108,4 +108,3 @@ const useTable = (
 
   return { paginationRange, handleSorting, currentPage, setCurrentPage, sortField, sortOrder };
 };
-export default useTable;

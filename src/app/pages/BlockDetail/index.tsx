@@ -1,13 +1,18 @@
 import { ETable } from 'app/components';
 import { ColumnProps } from 'app/components/ETable/ETableHead';
 import { MainLayout } from 'app/layouts';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBlock } from 'store/selectors/block';
+import { getTransactionPool } from 'store/selectors/transaction';
+import { useBlockSlice } from 'store/slices/block';
+import { useTransactionSlice } from 'store/slices/transaction';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 import { TransactionItem } from 'types/Transaction';
-import { ROWS_PER_PAGE } from 'utils/constants';
-import { useTable } from 'utils/hooks';
+import { ROWS_PER_PAGE, queryString } from 'utils/constants';
+import { useQuery, useTable } from 'utils/hooks';
 
 const Container = styled.div`
   display: flex;
@@ -38,6 +43,26 @@ const TransactionListTable = styled(ETable)``;
 
 const BlockDetail = () => {
   const { t } = useTranslation();
+  const blockNumber = useQuery().get(queryString.blockNumber);
+  const dispatch = useDispatch();
+  const { actions: blockActions } = useBlockSlice();
+  const { actions: transactionActions } = useTransactionSlice();
+  const transactionPool = useSelector(getTransactionPool);
+  const blockDetail = useSelector(getBlock);
+
+  useEffect(() => {
+    if (blockNumber) {
+      dispatch(
+        blockActions.doFetchBlock({
+          blockNumber: parseInt(blockNumber),
+        })
+      );
+    }
+  }, [blockActions, blockNumber, dispatch]);
+
+  useEffect(() => {
+    dispatch(transactionActions.doFetchTransactionPool());
+  }, [dispatch, transactionActions]);
   const columns: ColumnProps[] = useMemo(() => {
     return [
       {
@@ -71,43 +96,19 @@ const BlockDetail = () => {
     ];
   }, [t]);
   const TOTAL_ITEMS = 20;
-  const renderedData: TransactionItem[] = [
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-  ];
+  const renderedData: TransactionItem[] = useMemo(() => {
+    return Array.isArray(transactionPool) && transactionPool.length > 0
+      ? transactionPool?.map((transaction) => {
+          return {
+            txHash: transaction.txHash,
+            from: transaction.from,
+            to: transaction.to,
+            date: transaction.date,
+            value: transaction.value,
+          };
+        })
+      : [];
+  }, [transactionPool]);
   const { paginationRange, setCurrentPage, currentPage } = useTable(
     TOTAL_ITEMS ?? 0,
     columns,
@@ -118,12 +119,12 @@ const BlockDetail = () => {
     <MainLayout title={t('blockDetail.title')} headerTitle={t('blockDetail.title')}>
       <Container>
         <BlockDetailSection>
-          <SectionTitle>BLAB block: 123</SectionTitle>
-          <BlockDetailInfo>Hash: 0x1234567890</BlockDetailInfo>
-          <BlockDetailInfo>Last Hash: 0x1234567890</BlockDetailInfo>
-          <BlockDetailInfo>Distance: 3d 20h</BlockDetailInfo>
-          <BlockDetailInfo>Transactions: 13</BlockDetailInfo>
-          <BlockDetailInfo>Nonce: 40</BlockDetailInfo>
+          <SectionTitle>{`BLAB block: ${blockDetail?.blockNumber}`}</SectionTitle>
+          <BlockDetailInfo>{`Hash: ${blockDetail?.hash}`}</BlockDetailInfo>
+          <BlockDetailInfo>{`Last Hash: ${blockDetail?.lastHash ?? ''}`}</BlockDetailInfo>
+          <BlockDetailInfo>{`Distance: ${blockDetail?.distance ?? ''}`}</BlockDetailInfo>
+          <BlockDetailInfo>{`Transactions: ${blockDetail?.transactions?.length}`}</BlockDetailInfo>
+          <BlockDetailInfo>{`Nonce: ${blockDetail?.nonce}`}</BlockDetailInfo>
         </BlockDetailSection>
         <TransactionDetailSection>
           <SectionTitle>Transactions</SectionTitle>

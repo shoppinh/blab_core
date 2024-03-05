@@ -1,11 +1,28 @@
+import { TransactionItem } from './Transaction';
+
 export interface BlockListItem {
   blockNumber: number;
   hash: string;
   miner: string;
   mined: string;
-  txCount: number;
   total: number;
   sent: string;
+  difficulty: number;
+  transactions: TransactionItem[];
+  parentHash: string;
+  nonce: number;
+  binary: string;
+}
+
+export type BlockListRenderedItem = Omit<BlockListItem, 'binary' | 'nonce' | 'parentHash'>;
+
+export interface BlockDetail {
+  blockNumber: number;
+  hash: string;
+  lastHash: string;
+  distance: string;
+  transactions: BlockListItem[];
+  nonce: number;
 }
 
 export interface BlockQuery {
@@ -24,8 +41,8 @@ export interface BlockState {
 
 export interface BlockPayload {
   blocks?: BlockListItem[];
-  block?: BlockListItem;
-  minedBlock?: BlockListItem;
+  block?: BlockDetail;
+  minedBlock?: BlockDetail;
 }
 
 export enum BlockErrorType {

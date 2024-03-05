@@ -1,8 +1,11 @@
 import { EButton } from 'app/components';
 import { MainLayout } from 'app/layouts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getBalance, getKeyPair } from 'store/selectors/wallet';
+import { useWalletSlice } from 'store/slices/wallet';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 import { queryString } from 'utils/constants';
@@ -23,7 +26,8 @@ const SectionInfo = styled.div`
 `;
 
 const WalletDetailSection = styled.div`
-  flex: 1;
+  max-width: 50%;
+  word-break: break-all;
 `;
 
 const HistoryDetailSection = styled.div``;
@@ -63,6 +67,10 @@ const ShowButton = styled(EButton)`
 
 const Profile = () => {
   const { t } = useTranslation();
+  const keyPair = useSelector(getKeyPair);
+  const balance = useSelector(getBalance);
+  const dispatch = useDispatch();
+  const { actions: walletActions } = useWalletSlice();
   const historyRenderedData = [
     '0XANasdmaASasdasdasdasdmasdasdjkawjdkcc',
     '0XANasdmaASasdasdasdasdmasdasdjkawjdkss',
@@ -70,22 +78,34 @@ const Profile = () => {
     '0XANasdmaASasdasdasdasdmasdasdjkawjdkww',
   ];
   const navigate = useNavigate();
-  const privateKey = 'asdas xcvzxassfcasc';
+
   const [isShowPrivateKey, setIsShowPrivateKey] = useState(false);
+
+  useEffect(() => {
+    if (keyPair?.address && balance === null) {
+      dispatch(walletActions.doFetchBalance({ address: keyPair.address }));
+    }
+  }, [balance, dispatch, keyPair?.address, walletActions]);
   return (
     <MainLayout title={t('profile.title')} headerTitle={t('profile.title')}>
       <Container>
         <WalletDetailSection>
           <SectionInfo>Wallet</SectionInfo>
           <PrivateKeySection>
-            <SectionDetailInfo>{`Private key: ${isShowPrivateKey ? privateKey : Array.from(privateKey).fill('*').join('')}`}</SectionDetailInfo>
-            <ShowButton variant='primary' onClick={() => setIsShowPrivateKey(!isShowPrivateKey)}>
+            <SectionDetailInfo>{`Private key: ${
+              isShowPrivateKey
+                ? keyPair?.privateKey
+                : Array.from(keyPair?.privateKey ?? '')
+                    .fill('*')
+                    .join('')
+            }`}</SectionDetailInfo>
+            <ShowButton onClick={() => setIsShowPrivateKey(!isShowPrivateKey)}>
               {isShowPrivateKey ? 'Hide' : 'Show'} private key
             </ShowButton>
           </PrivateKeySection>
-          <SectionDetailInfo>Public key: 0x0efkjaskfkasjd</SectionDetailInfo>
-          <SectionDetailInfo>Address: 0xasdihajskd</SectionDetailInfo>
-          <SectionDetailInfo>Balance: 100 BLAB</SectionDetailInfo>
+          <SectionDetailInfo>{`Public key: ${keyPair?.publicKey}`}</SectionDetailInfo>
+          <SectionDetailInfo>{`Address: ${keyPair?.address}`}</SectionDetailInfo>
+          <SectionDetailInfo>{`Balance: ${balance}`}</SectionDetailInfo>
         </WalletDetailSection>
         <HistoryDetailSection>
           <SectionInfo>History</SectionInfo>

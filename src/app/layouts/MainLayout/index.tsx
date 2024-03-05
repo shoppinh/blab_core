@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import tw, { styled } from 'twin.macro';
 import { media } from '../../../styles';
 import { StyleConstants } from '../../../styles/constants/style';
 import { pxToRem } from '../../../styles/theme/utils';
 import BaseLayout from '../BaseLayout';
 import Header from './components/Header';
+import { useWalletSlice } from 'store/slices/wallet';
+import { useDispatch, useSelector } from 'react-redux';
+import { getKeyPair } from 'store/selectors/wallet';
 
 interface Props {
   children?: React.ReactNode;
@@ -49,6 +52,14 @@ const NavigationBottomBar = styled.div`
 `;
 
 const MainLayout: React.FC<Props> = ({ children, headerTitle, title }) => {
+  const { actions: walletActions } = useWalletSlice();
+  const dispatch = useDispatch();
+  const keypair = useSelector(getKeyPair);
+  useEffect(() => {
+    if (!keypair?.privateKey || !keypair?.publicKey || !keypair?.address) {
+      dispatch(walletActions.doGenerateKeyPair());
+    }
+  }, [dispatch, keypair?.address, keypair?.privateKey, keypair?.publicKey, walletActions]);
   return (
     <BaseLayout title={title}>
       <Container>

@@ -1,13 +1,16 @@
 import { EButton, ETable } from 'app/components';
 import { ColumnProps } from 'app/components/ETable/ETableHead';
 import { MainLayout } from 'app/layouts';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getTransactionPool } from 'store/selectors/transaction';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 import { TransactionItem } from 'types/Transaction';
 import { ROWS_PER_PAGE } from 'utils/constants';
 import { useTable } from 'utils/hooks';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTransactionSlice } from 'store/slices/transaction';
 
 const Container = styled.div`
   display: flex;
@@ -47,6 +50,8 @@ const ButtonWrapper = styled.div`
 
 const TransactionPool = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { actions: transactionActions } = useTransactionSlice();
   const columns: ColumnProps[] = useMemo(() => {
     return [
       {
@@ -79,52 +84,37 @@ const TransactionPool = () => {
       },
     ];
   }, [t]);
-  const TOTAL_ITEMS = 20;
-  const renderedData: TransactionItem[] = [
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-    {
-      txHash: '0x1234567890',
-      from: '0x1234567890',
-      to: '0x1234567890',
-      value: 123,
-      date: '2021-12-12',
-    },
-  ];
+  // Get transaction pool from store
+  const transactionPool = useSelector(getTransactionPool);
+
+  // Mapping data to render
+  const renderedData: TransactionItem[] = useMemo(() => {
+    return Array.isArray(transactionPool) && transactionPool.length > 0
+      ? transactionPool.map((transaction) => {
+          return {
+            txHash: transaction.txHash,
+            from: transaction.from,
+            to: transaction.to,
+            date: transaction.date,
+            value: transaction.value,
+          };
+        })
+      : [];
+  }, [transactionPool]);
   const { paginationRange, setCurrentPage, currentPage } = useTable(
-    TOTAL_ITEMS ?? 0,
+    transactionPool?.length ?? 0,
     columns,
     ROWS_PER_PAGE,
     ''
   );
+  // Fetch transaction pool
+  useEffect(() => {
+    if (!transactionPool) {
+      dispatch(transactionActions.doFetchTransactionPool());
+    }
+  }, [dispatch, transactionActions, transactionPool]);
   return (
-    <MainLayout title={t('txPool.title')} headerTitle={t('txPool.title')}>
+    <MainLayout title={t('transactionPool.title')} headerTitle={t('transactionPool.title')}>
       <Container>
         <SectionTitle>Transactions</SectionTitle>
         <TransactionListTable
@@ -134,7 +124,7 @@ const TransactionPool = () => {
           handleSorting={() => {}}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalItems={TOTAL_ITEMS || 0}
+          totalItems={transactionPool?.length || 0}
           rowsPerPage={ROWS_PER_PAGE}
           isLoading={false}
           tableSetting={{
@@ -142,7 +132,7 @@ const TransactionPool = () => {
           }}
         />
         <ButtonWrapper>
-          <MineButton>{t('txPool.mine')}</MineButton>
+          <MineButton>{t('transactionPool.mine')}</MineButton>
         </ButtonWrapper>
       </Container>
     </MainLayout>

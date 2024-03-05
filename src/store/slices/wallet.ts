@@ -1,4 +1,4 @@
-import { WalletState } from 'types/Wallet';
+import { BalanceQuery, WalletState } from 'types/Wallet';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { walletSaga } from '../sagas/wallet';
@@ -13,7 +13,7 @@ const slice = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
-    doGenerateKeyPair(state, action) {
+    doGenerateKeyPair(state) {
       state.loading = true;
       state.error = null;
     },
@@ -24,7 +24,7 @@ const slice = createSlice({
         keyPair: action.payload,
       };
     },
-    doFetchBalance(state, action) {
+    doFetchBalance(state, action: { payload: BalanceQuery }) {
       state.loading = true;
       state.error = null;
     },

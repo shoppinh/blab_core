@@ -4,6 +4,11 @@ const SiteMap = {
     link: '/',
     isProtected: false,
   },
+  blockList: {
+    title: 'blockList.title',
+    link: '/blocks',
+    isProtected: true,
+  },
   blockDetail: {
     title: 'blockDetail.title',
     link: '/block-detail',

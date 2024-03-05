@@ -21,7 +21,7 @@ export function* createTransactionSaga({
   try {
     const res = yield call(apiCreateTransaction, payload);
     if (res?.data) {
-      yield put(actions.doCreatedTransaction(res.data));
+      yield put(actions.doCreatedTransaction(res.data.data));
     } else {
       yield put(actions.Error('Error creating transaction'));
     }
@@ -35,7 +35,7 @@ export function* signTransactionSaga({
   try {
     const res = yield call(apiSignTransaction, payload);
     if (res?.data) {
-      yield put(actions.doSignedTransaction(res.data));
+      yield put(actions.doSignedTransaction(res.data.data));
     } else {
       yield put(actions.Error('Error signing transaction'));
     }
@@ -47,7 +47,7 @@ export function* fetchTransactionPoolSaga(): Generator<any, void, any> {
   try {
     const res = yield call(apiGetTransactionPool);
     if (res?.data) {
-      yield put(actions.doFetchedTransactionPool(res.data));
+      yield put(actions.doFetchedTransactionPool(res.data.data));
     } else {
       yield put(actions.Error('Error fetching transaction pool'));
     }

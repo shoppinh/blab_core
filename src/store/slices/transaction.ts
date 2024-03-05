@@ -35,7 +35,7 @@ const slice = createSlice({
         transaction: action.payload,
       };
     },
-    doFetchTransactionPool(state, action) {
+    doFetchTransactionPool(state) {
       state.loading = true;
       state.error = null;
     },

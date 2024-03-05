@@ -1,7 +1,10 @@
 import { EButton, EInput, ETextArea } from 'app/components';
 import { MainLayout } from 'app/layouts';
-import React, { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBalance, getKeyPair } from 'store/selectors/wallet';
+import { useWalletSlice } from 'store/slices/wallet';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 
@@ -51,7 +54,7 @@ const SendButton = styled(EButton)`
   color: ${(p) => p.theme.text};
   background-color: ${(p) => p.theme.background};
   border: 1px solid ${(p) => p.theme.text};
-  padding: ${pxToRem(5)}rem ${pxToRem(10)}rem;
+  padding: ${pxToRem(5)}rem ${pxToRem(15)}rem;
 
   &:hover {
     background-color: ${(p) => p.theme.text};
@@ -61,12 +64,22 @@ const SendButton = styled(EButton)`
 
 const Transaction = () => {
   const { t } = useTranslation();
+  const keyPair = useSelector(getKeyPair);
+  const balance = useSelector(getBalance);
+  const dispatch = useDispatch();
+  const { actions: walletActions } = useWalletSlice();
+
+  useEffect(() => {
+    if (keyPair?.address && !balance) {
+      dispatch(walletActions.doFetchBalance({ address: keyPair.address }));
+    }
+  }, [balance, dispatch, keyPair?.address, walletActions]);
   return (
     <MainLayout title={t('transaction.title')} headerTitle={t('transaction.title')}>
       <Container>
         <ContentWrapper>
-          <SectionInfo>Address: 0xFA580BE09d1yc</SectionInfo>
-          <SectionInfo>Balance: 217.22 BLAB</SectionInfo>
+          <SectionInfo>{`Address: ${keyPair?.address ?? ''}`}</SectionInfo>
+          <SectionInfo>{`Balance: ${balance ?? ''}`}</SectionInfo>
           <ActionSection>
             <InputWrapper>
               <InputTitle>{t('transaction.to') as ReactNode}</InputTitle>

@@ -62,25 +62,25 @@ const Header: React.FC<Props> = ({ headerTitle }) => {
     return [
       {
         id: 1,
-        url: '/',
+        url: SiteMap.blockList.link,
         iconName: 'partei-bubbles3',
-        name: 'Block',
+        name: t(SiteMap.blockList.title),
         subRoutes: [SiteMap.blockDetail.link],
       },
       {
         id: 2,
-        url: '/transaction',
+        url: SiteMap.transaction.link,
         iconName: 'partei-user',
-        name: 'Transaction',
+        name: t(SiteMap.transaction.title),
       },
       {
         id: 3,
-        url: '/transaction-pool',
+        url: SiteMap.transactionPool.link,
         iconName: 'partei-user',
-        name: 'Transaction Pool',
+        name: t(SiteMap.transactionPool.title),
       },
     ];
-  }, []);
+  }, [t]);
 
   const location = useLocation();
   return (

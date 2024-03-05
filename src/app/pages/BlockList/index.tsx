@@ -1,12 +1,15 @@
 import { ETable } from 'app/components';
 import { ColumnProps } from 'app/components/ETable/ETableHead';
 import { MainLayout } from 'app/layouts';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getBlocks } from 'store/selectors/block';
+import { useBlockSlice } from 'store/slices/block';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
-import { BlockListItem } from 'types/Block';
+import { BlockListItem, BlockListRenderedItem } from 'types/Block';
 import { ROWS_PER_PAGE, queryString } from 'utils/constants';
 import { useTable } from 'utils/hooks';
 import { SiteMap } from 'utils/sitemap';
@@ -54,10 +57,12 @@ const BlockChainDisplayItem = styled.div`
   justify-content: center;
   cursor: pointer;
 `;
-const TOTAL_ITEMS = 20;
 
 const BlockList = () => {
   const { t } = useTranslation();
+  const { actions: blockActions } = useBlockSlice();
+  const blocks = useSelector(getBlocks);
+  const dispatch = useDispatch();
 
   const columns: ColumnProps[] = useMemo(() => {
     return [
@@ -87,7 +92,7 @@ const BlockList = () => {
       {
         label: t('table.txCount'),
         accessor: 'txCount',
-        render: (item: BlockListItem) => item.txCount,
+        render: (item: BlockListItem) => item.transactions.length,
       },
       {
         label: t('table.total'),
@@ -101,39 +106,26 @@ const BlockList = () => {
       },
     ];
   }, [t]);
-  const renderedData: BlockListItem[] = useMemo(() => {
-    return [
-      {
-        blockNumber: 1,
-        hash: '0x1234567890',
-        miner: '0x1234567890',
-        mined: '2021-01-01',
-        txCount: 1,
-        total: 100,
-        sent: 'blab',
-      },
-      {
-        blockNumber: 2,
-        hash: '0x1234567890',
-        miner: '0x1234567890',
-        mined: '2021-01-01',
-        txCount: 1,
-        total: 100,
-        sent: 'blab',
-      },
-      {
-        blockNumber: 3,
-        hash: '0x1234567890',
-        miner: '0x1234567890',
-        mined: '2021-01-01',
-        txCount: 1,
-        total: 100,
-        sent: 'blab',
-      },
-    ];
-  }, []);
+
+  const renderedData: BlockListRenderedItem[] = useMemo(() => {
+    return Array.isArray(blocks) && blocks.length > 0
+      ? blocks?.map((block) => {
+          return {
+            blockNumber: block.blockNumber,
+            hash: block.hash,
+            miner: block.miner,
+            mined: block.mined,
+            txCount: block.transactions.length,
+            total: block.total,
+            sent: block.sent,
+            difficulty: block.difficulty,
+            transactions: block.transactions,
+          };
+        })
+      : [];
+  }, [blocks]);
   const { paginationRange, setCurrentPage, currentPage } = useTable(
-    TOTAL_ITEMS ?? 0,
+    blocks?.length ?? 0,
     columns,
     ROWS_PER_PAGE,
     ''
@@ -148,13 +140,17 @@ const BlockList = () => {
     },
     [navigate]
   );
+
+  useEffect(() => {
+    dispatch(blockActions.doFetchBlocks());
+  }, [blockActions, dispatch]);
   return (
     <MainLayout title={t('home.title')} headerTitle={t('home.title')}>
       <Container>
         <BlockChainSection>
           <BlockChainInfo>
             <BlockChainInfoText>Latest Block</BlockChainInfoText>
-            <BlockChainInfoText>Difficulty: 3</BlockChainInfoText>
+            <BlockChainInfoText>{`Difficulty: ${renderedData[renderedData.length - 1]?.difficulty ?? 0}`}</BlockChainInfoText>
           </BlockChainInfo>
           <BlockChainDisplay>
             {renderedData.map((block) => (
@@ -175,7 +171,7 @@ const BlockList = () => {
             handleSorting={() => {}}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            totalItems={TOTAL_ITEMS || 0}
+            totalItems={blocks?.length || 0}
             rowsPerPage={ROWS_PER_PAGE}
             isLoading={false}
             tableSetting={{

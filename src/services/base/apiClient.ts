@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { fetchCurrentLocale } from 'utils/localization';
-import { responseInterceptor, errorInterceptor, requestInterceptor } from './interceptor';
+import { errorInterceptor, requestInterceptor, responseInterceptor } from './interceptor';
 import { AcceptType } from './type';
+import { fetchCurrentLocale } from 'utils/localization';
 
 // axios.defaults.baseURL = 'http://10.10.13.158:3000';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -31,14 +31,14 @@ class apiClient {
 
   constructor(token?: string) {
     const authHeader = token && token.length > 0 ? { Authorization: 'Bearer ' + token } : null;
-    const currentLocale = fetchCurrentLocale();
+    // const currentLocale = fetchCurrentLocale();
     this.config = {
       validateStatus: () => true,
     };
     this.headers = {
       ...defaultHeader,
       ...authHeader,
-      locale: currentLocale,
+      // locale: currentLocale,
     };
   }
 

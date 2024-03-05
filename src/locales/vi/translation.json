@@ -174,11 +174,17 @@
   "transactionDetail": {
     "title": "Chi tiết giao dịch"
   },
-  "txPool": {
+  "transactionPool": {
     "title": "Bể chứa giao dịch"
   
   },
+  "blockList": {
+    "title": "Danh sách khối"
+  },
   "blockDetail": {
     "title": "Chi tiết khối"
+  },
+  "common": {
+    "noDataToShow": "Không có dữ liệu để hiển thị"
   }
 }
