@@ -187,5 +187,11 @@
   },
   "common": {
     "noDataToShow": "No data to show"
+  },
+  "blabBuild": {
+    "title": "BLAB Build"
+  },
+  "blabLibrary": {
+    "title": "BLAB Library"
   }
 }

@@ -1,7 +1,7 @@
 import { EButton, ETable } from 'app/components';
 import { ColumnProps } from 'app/components/ETable/ETableHead';
 import { MainLayout } from 'app/layouts';
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getTransactionPool } from 'store/selectors/transaction';
 import { pxToRem } from 'styles/theme/utils';
@@ -107,6 +107,10 @@ const TransactionPool = () => {
     ROWS_PER_PAGE,
     ''
   );
+
+  // Handle mine button click
+  const handleMine = useCallback(() => {}, []);
+
   // Fetch transaction pool
   useEffect(() => {
     if (!transactionPool) {

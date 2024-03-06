@@ -44,6 +44,14 @@ const SiteMap = {
     link: '/register',
     isProtected: false,
   },
+  blabLibrary: {
+    title: 'blabLibrary.title',
+    link: process.env.BLAB_LIBRARY_URL ?? 'http://localhost:3001',
+  },
+  blabBuild: {
+    title: 'blabBuild.title',
+    link: process.env.BLAB_BUILD_URL ?? 'http://localhost:3002',
+  },
 };
 
 export { SiteMap };

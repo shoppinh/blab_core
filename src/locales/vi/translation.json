@@ -186,5 +186,11 @@
   },
   "common": {
     "noDataToShow": "Không có dữ liệu để hiển thị"
+  },
+  "blabBuild": {
+    "title": "BLAB Build"
+  },
+  "blabLibrary": {
+    "title": "BLAB Library"
   }
 }

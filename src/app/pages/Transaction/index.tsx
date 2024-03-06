@@ -1,6 +1,6 @@
 import { EButton, EInput, ETextArea } from 'app/components';
 import { MainLayout } from 'app/layouts';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, getKeyPair } from 'store/selectors/wallet';
@@ -68,7 +68,10 @@ const Transaction = () => {
   const balance = useSelector(getBalance);
   const dispatch = useDispatch();
   const { actions: walletActions } = useWalletSlice();
+  // Handle send transaction
+  const handleSend = useCallback(() => {}, []);
 
+  // Fetch balance on load
   useEffect(() => {
     if (keyPair?.address && !balance) {
       dispatch(walletActions.doFetchBalance({ address: keyPair.address }));
