@@ -1,4 +1,4 @@
-import { BlockQuery, BlockState } from 'types/Block';
+import { BlockQuery, BlockState, MineBlockQuery } from 'types/Block';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { blockSaga } from '../sagas/block';
@@ -35,7 +35,7 @@ const slice = createSlice({
       };
       state.loading = false;
     },
-    doMineBlock(state, action) {
+    doMineBlock(state, _action: { payload: MineBlockQuery }) {
       state.loading = true;
       state.error = null;
     },
@@ -47,7 +47,10 @@ const slice = createSlice({
       state.loading = false;
     },
     Error(state, action) {
-      state.error = action.payload;
+      state.error = {
+        ...state.error,
+        message: action.payload,
+      };
       state.loading = false;
     },
   },

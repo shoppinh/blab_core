@@ -1,4 +1,8 @@
-import { TransactionState } from 'types/Transaction';
+import {
+  SignAndCreateTransactionQuery,
+  SignTransactionQuery,
+  TransactionState,
+} from 'types/Transaction';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { transactionSaga } from '../sagas/transaction';
@@ -13,7 +17,7 @@ const slice = createSlice({
   name: 'transaction',
   initialState,
   reducers: {
-    doCreateTransaction(state, action) {
+    doCreateTransaction(state, action: { payload: SignAndCreateTransactionQuery }) {
       state.loading = true;
       state.error = null;
     },
@@ -24,7 +28,7 @@ const slice = createSlice({
         transaction: action.payload,
       };
     },
-    doSignTransaction(state, action) {
+    doSignTransaction(state, action: { payload: SignTransactionQuery }) {
       state.loading = true;
       state.error = null;
     },
@@ -46,8 +50,27 @@ const slice = createSlice({
       };
       state.loading = false;
     },
+    doFetchTransactionHistory(state, action: { payload: string }) {},
+    doFetchedTransactionHistory(state, action) {
+      state.data = {
+        ...state.data,
+        transactionHistory: action.payload,
+      };
+      state.loading = false;
+    },
+    doFetchTransactionDetail(state, action: { payload: string }) {},
+    doFetchedTransactionDetail(state, action) {
+      state.data = {
+        ...state.data,
+        transaction: action.payload,
+      };
+      state.loading = false;
+    },
     Error(state, action) {
-      state.error = action.payload;
+      state.error = {
+        ...state.error,
+        message: action.payload,
+      };
       state.loading = false;
     },
   },

@@ -20,6 +20,7 @@ const Container = styled.div`
   justify-content: space-between;
   height: 100%;
   padding: ${pxToRem(40)}rem;
+  gap: ${pxToRem(20)}rem;
 `;
 
 const TransactionDetailSection = styled.div`
@@ -68,12 +69,18 @@ const BlockDetail = () => {
       {
         label: t('table.txHash'),
         accessor: 'txHash',
-        render: (item: TransactionItem) => item.txHash,
+        render: (item: TransactionItem) => item.hash,
+        style: {
+          wordBreak: 'break-all',
+        },
       },
       {
         label: t('table.from'),
         accessor: 'from',
         render: (item: TransactionItem) => item.from,
+        style: {
+          wordBreak: 'break-all',
+        },
       },
       {
         label: t('table.to'),
@@ -84,9 +91,9 @@ const BlockDetail = () => {
         },
       },
       {
-        label: t('table.date'),
-        accessor: 'date',
-        render: (item: TransactionItem) => item.date,
+        label: t('table.data'),
+        accessor: 'data',
+        render: (item: TransactionItem) => new Date(item.timestamp).toLocaleString(),
       },
       {
         label: t('table.value'),
@@ -100,11 +107,13 @@ const BlockDetail = () => {
     return Array.isArray(transactionPool) && transactionPool.length > 0
       ? transactionPool?.map((transaction) => {
           return {
-            txHash: transaction.txHash,
+            hash: transaction.hash,
             from: transaction.from,
             to: transaction.to,
-            date: transaction.date,
+            timestamp: transaction.timestamp,
             value: transaction.value,
+            signature: transaction.signature,
+            data: transaction.data,
           };
         })
       : [];

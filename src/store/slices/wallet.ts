@@ -36,7 +36,10 @@ const slice = createSlice({
       };
     },
     Error(state, action) {
-      state.error = action.payload;
+      state.error = {
+        ...state.error,
+        message: action.payload,
+      };
       state.loading = false;
     },
   },

@@ -1,13 +1,16 @@
 import { EButton } from 'app/components';
 import { MainLayout } from 'app/layouts';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getTransactionHistory } from 'store/selectors/transaction';
 import { getBalance, getKeyPair } from 'store/selectors/wallet';
+import { useTransactionSlice } from 'store/slices/transaction';
 import { useWalletSlice } from 'store/slices/wallet';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
+import { TransactionItem } from 'types/Transaction';
 import { queryString } from 'utils/constants';
 import { SiteMap } from 'utils/sitemap';
 
@@ -71,21 +74,39 @@ const Profile = () => {
   const balance = useSelector(getBalance);
   const dispatch = useDispatch();
   const { actions: walletActions } = useWalletSlice();
-  const historyRenderedData = [
-    '0XANasdmaASasdasdasdasdmasdasdjkawjdkcc',
-    '0XANasdmaASasdasdasdasdmasdasdjkawjdkss',
-    '0XANasdmaASasdasdasdasdmasdasdjkawjdkzz',
-    '0XANasdmaASasdasdasdasdmasdasdjkawjdkww',
-  ];
+  const { actions: transactionActions } = useTransactionSlice();
+  const transactionHistory = useSelector(getTransactionHistory);
+  const historyRenderedData: TransactionItem[] = useMemo(() => {
+    return Array.isArray(transactionHistory)
+      ? transactionHistory.map((item) => {
+          return {
+            hash: item.hash,
+            signature: item.signature,
+            from: item.from,
+            to: item.to,
+            value: item.value,
+            timestamp: item.timestamp,
+            data: item.data,
+          };
+        })
+      : [];
+  }, [transactionHistory]);
   const navigate = useNavigate();
 
   const [isShowPrivateKey, setIsShowPrivateKey] = useState(false);
-
+  // fetch balance
   useEffect(() => {
-    if (keyPair?.address && balance === null) {
+    if (keyPair?.address && balance === undefined) {
       dispatch(walletActions.doFetchBalance({ address: keyPair.address }));
     }
   }, [balance, dispatch, keyPair?.address, walletActions]);
+
+  // fetch transaction history
+  useEffect(() => {
+    if (keyPair?.address) {
+      dispatch(transactionActions.doFetchTransactionHistory(keyPair.address));
+    }
+  }, [dispatch, keyPair?.address, transactionActions]);
   return (
     <MainLayout title={t('profile.title')} headerTitle={t('profile.title')}>
       <Container>
@@ -94,7 +115,7 @@ const Profile = () => {
           <PrivateKeySection>
             <SectionDetailInfo>{`Private key: ${
               isShowPrivateKey
-                ? keyPair?.privateKey
+                ? keyPair?.privateKey ?? ''
                 : Array.from(keyPair?.privateKey ?? '')
                     .fill('*')
                     .join('')
@@ -103,23 +124,23 @@ const Profile = () => {
               {isShowPrivateKey ? 'Hide' : 'Show'} private key
             </ShowButton>
           </PrivateKeySection>
-          <SectionDetailInfo>{`Public key: ${keyPair?.publicKey}`}</SectionDetailInfo>
-          <SectionDetailInfo>{`Address: ${keyPair?.address}`}</SectionDetailInfo>
-          <SectionDetailInfo>{`Balance: ${balance}`}</SectionDetailInfo>
+          <SectionDetailInfo>{`Public key: ${keyPair?.publicKey ?? ''}`}</SectionDetailInfo>
+          <SectionDetailInfo>{`Address: ${keyPair?.address ?? ''}`}</SectionDetailInfo>
+          <SectionDetailInfo>{`Balance: ${balance ?? 0}`}</SectionDetailInfo>
         </WalletDetailSection>
         <HistoryDetailSection>
           <SectionInfo>History</SectionInfo>
           {historyRenderedData.map((data) => (
             <HistoryDetailInfo
-              key={data}
+              key={data.hash}
               onClick={() =>
                 navigate({
                   pathname: SiteMap.transactionDetail.link,
-                  search: `?${queryString.historyAddress}=${data}`,
+                  search: `?${queryString.transactionHash}=${data.hash}`,
                 })
               }
             >
-              {data}
+              {data.hash}
             </HistoryDetailInfo>
           ))}
         </HistoryDetailSection>

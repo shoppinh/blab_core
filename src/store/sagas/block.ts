@@ -22,24 +22,23 @@ export function mapBlock(block: any): BlockListItem {
     blockNumber: block.block_number,
     hash: block.hash,
     miner: block.miner,
-    mined: block.mined,
-    total: block.total,
-    sent: block.sent,
+    totalSent: block.totalSent,
     binary: block.binary,
     nonce: block.nonce,
     difficulty: block.difficulty,
     parentHash: block.parent_hash,
     transactions: block.transactions,
+    timestamp: block.timestamp,
   };
 }
 
 export function* fetchBlocksSaga(): Generator<any, void, any> {
   try {
     const res = yield call(apiGetBlocks);
-    if (res?.data) {
+    if (res?.data?.data) {
       yield put(actions.doFetchedBlocks(mapBlocks(res.data.data.blocks)));
     } else {
-      yield put(actions.Error('Error fetching blocks'));
+      yield put(actions.Error(res.data.error));
     }
   } catch (error) {
     console.log('🚀 ~ function*fetchBlocksSaga ~ error:', error);
@@ -48,10 +47,10 @@ export function* fetchBlocksSaga(): Generator<any, void, any> {
 export function* fetchBlockSaga({ payload }: PayloadAction<BlockQuery>): Generator<any, void, any> {
   try {
     const res = yield call(apiGetBlock, payload);
-    if (res?.data) {
+    if (res?.data?.data) {
       yield put(actions.doFetchedBlock(mapBlock(res.data.data)));
     } else {
-      yield put(actions.Error('Error fetching block'));
+      yield put(actions.Error(res.data.error));
     }
   } catch (error) {
     console.log('🚀 ~ function*fetchBlockSaga ~ error:', error);
@@ -62,10 +61,10 @@ export function* mineBlockSaga({
 }: PayloadAction<MineBlockQuery>): Generator<any, void, any> {
   try {
     const res = yield call(apiMineBlock, payload);
-    if (res?.data) {
+    if (res?.data?.data) {
       yield put(actions.doMinedBlock(res.data.data));
     } else {
-      yield put(actions.Error('Error mining block'));
+      yield put(actions.Error(res.data.error));
     }
   } catch (error) {
     console.log('🚀 ~ function*mineBlockSaga ~ error:', error);

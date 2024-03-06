@@ -4,9 +4,9 @@
 
 import { lazyLoad } from 'utils/loadable';
 
-export const ETable = lazyLoad(
+export const ELoadingIndicator = lazyLoad(
   () => import('./index'),
-  (module) => module.default,
+  (module) => module.ELoadingIndicator,
   {
     fallback: <></>,
   }

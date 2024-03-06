@@ -1,9 +1,12 @@
-import { EButton, EInput, ETextArea } from 'app/components';
+import { EBackdropLoading, EButton, EInput, ETextArea } from 'app/components';
 import { MainLayout } from 'app/layouts';
-import { ReactNode, useCallback, useEffect } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { getTransactionError, getTransactionLoading } from 'store/selectors/transaction';
 import { getBalance, getKeyPair } from 'store/selectors/wallet';
+import { useTransactionSlice } from 'store/slices/transaction';
 import { useWalletSlice } from 'store/slices/wallet';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
@@ -68,8 +71,40 @@ const Transaction = () => {
   const balance = useSelector(getBalance);
   const dispatch = useDispatch();
   const { actions: walletActions } = useWalletSlice();
+  const { actions: transactionActions } = useTransactionSlice();
+  const [toAddress, setToAddress] = useState('');
+  const [data, setData] = useState('');
+  const [isFormSent, setIsFormSent] = useState(false);
   // Handle send transaction
-  const handleSend = useCallback(() => {}, []);
+  const handleSend = useCallback(() => {
+    if (toAddress && data && keyPair?.address && keyPair?.privateKey) {
+      setIsFormSent(true);
+      const proximateTimestamp = Math.floor((new Date().getTime() - 1000) / 1000);
+      dispatch(
+        transactionActions.doCreateTransaction({
+          data,
+          to: toAddress,
+          value: 1,
+          // get current timestamp in seconds
+          timestamp: proximateTimestamp,
+          from: keyPair?.address ?? '',
+          privateKey: keyPair?.privateKey ?? '',
+          publicKey: keyPair?.publicKey ?? '',
+        })
+      );
+    }
+  }, [
+    data,
+    dispatch,
+    keyPair?.address,
+    keyPair?.privateKey,
+    keyPair?.publicKey,
+    toAddress,
+    transactionActions,
+  ]);
+
+  const isLoading = useSelector(getTransactionLoading);
+  const transactionError = useSelector(getTransactionError);
 
   // Fetch balance on load
   useEffect(() => {
@@ -77,6 +112,17 @@ const Transaction = () => {
       dispatch(walletActions.doFetchBalance({ address: keyPair.address }));
     }
   }, [balance, dispatch, keyPair?.address, walletActions]);
+
+  useEffect(() => {
+    if (isFormSent && !isLoading && transactionError) {
+      toast.error(transactionError.message ?? 'Error');
+      setIsFormSent(false);
+    } else if (isFormSent && !isLoading && !transactionError) {
+      toast.success('Transaction sent successfully');
+      setIsFormSent(false);
+    }
+  }, [isFormSent, isLoading, transactionError]);
+
   return (
     <MainLayout title={t('transaction.title')} headerTitle={t('transaction.title')}>
       <Container>
@@ -86,17 +132,25 @@ const Transaction = () => {
           <ActionSection>
             <InputWrapper>
               <InputTitle>{t('transaction.to') as ReactNode}</InputTitle>
-              <EInput placeholder={t('transaction.to')} />
+              <EInput
+                placeholder={t('transaction.to')}
+                onChange={(e) => setToAddress(e.target.value)}
+              />
             </InputWrapper>
             <InputWrapper>
               <InputTitle>{t('transaction.data') as ReactNode}</InputTitle>
-              <ETextArea rows={15} placeholder={t('transaction.data')} />
+              <ETextArea
+                rows={15}
+                placeholder={t('transaction.data')}
+                onChange={(e) => setData(e.target.value)}
+              />
             </InputWrapper>
             <ButtonWrapper>
-              <SendButton>{t('transaction.send')}</SendButton>
+              <SendButton onClick={handleSend}>{t('transaction.send')}</SendButton>
             </ButtonWrapper>
           </ActionSection>
         </ContentWrapper>
+        <EBackdropLoading isShow={isLoading ?? false} />
       </Container>
     </MainLayout>
   );

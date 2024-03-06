@@ -28,3 +28,13 @@ export const signTransaction = async (query: SignTransactionQuery) => {
 export const getTransactionPool = async () => {
   return new apiClient('').get(APIs.transaction.getTransactionPool);
 };
+
+export const getTransactionHistory = async (address: string) => {
+  const url = APIs.transaction.getTransactionHistory.replace('{address}', address);
+  return new apiClient('').get(url);
+};
+
+export const getTransactionDetail = async (hash: string) => {
+  const url = APIs.transaction.getTransactionDetail.replace('{hash}', hash);
+  return new apiClient('').get(url);
+};

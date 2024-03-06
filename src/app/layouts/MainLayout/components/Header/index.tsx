@@ -8,6 +8,8 @@ import { StyleConstants } from 'styles/constants/style';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 import { SiteMap } from 'utils/sitemap';
+import { getKeyPair } from 'store/selectors/wallet';
+import { hideInformation } from 'utils/helpers';
 
 interface Props {
   headerTitle: string;
@@ -38,8 +40,8 @@ const HeaderWrapper = styled.div`
 `;
 
 const ProfileTitle = styled.div`
-  font-size: ${pxToRem(20)}rem;
-  font-weight: 700;
+  /* font-size: ${pxToRem(20)}rem;
+  font-weight: 700; */
   flex: 2;
   text-align: end;
 `;
@@ -83,6 +85,7 @@ const Header: React.FC<Props> = ({ headerTitle }) => {
   }, [t]);
 
   const location = useLocation();
+  const keyPair = useSelector(getKeyPair);
   return (
     <Container>
       <HeaderWrapper>
@@ -104,7 +107,9 @@ const Header: React.FC<Props> = ({ headerTitle }) => {
           ))}
         </NavigationGroup>
         <ProfileTitle>
-          <Link to='/profile'>{currentUser?.username ?? (t('profile.title') as ReactNode)}</Link>
+          <NavigationLink to='/profile' isActive={location.pathname === SiteMap.profile.link}>
+            {hideInformation(keyPair?.address) ?? (t('profile.title') as ReactNode)}
+          </NavigationLink>
         </ProfileTitle>
       </HeaderWrapper>
     </Container>

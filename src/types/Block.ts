@@ -4,14 +4,13 @@ export interface BlockListItem {
   blockNumber: number;
   hash: string;
   miner: string;
-  mined: string;
-  total: number;
-  sent: string;
+  totalSent: number;
   difficulty: number;
   transactions: TransactionItem[];
   parentHash: string;
   nonce: number;
   binary: string;
+  timestamp: number;
 }
 
 export type BlockListRenderedItem = Omit<BlockListItem, 'binary' | 'nonce' | 'parentHash'>;
@@ -51,6 +50,6 @@ export enum BlockErrorType {
 }
 
 export interface BlockError {
-  code: BlockErrorType | null;
+  code?: BlockErrorType | null;
   message?: string;
 }

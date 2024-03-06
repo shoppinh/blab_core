@@ -38,6 +38,8 @@ export const APIs = {
     createTransaction: '/transaction/',
     signTransaction: '/transaction/sign',
     getTransactionPool: '/transaction/pool',
+    getTransactionHistory: '/transaction/history/{address}',
+    getTransactionDetail: '/transaction/{hash}',
   },
   wallet: {
     generateKeyPair: '/wallet/',

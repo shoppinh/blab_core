@@ -1,8 +1,13 @@
 import { MainLayout } from 'app/layouts';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTransactionSlice } from 'store/slices/transaction';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
+import { queryString } from 'utils/constants';
+import { useQuery } from 'utils/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTransactionDetail } from 'store/selectors/transaction';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,16 +32,25 @@ const TransactionDetailInfo = styled.div`
 
 const TransactionDetail = () => {
   const { t } = useTranslation();
+  const transactionHash = useQuery().get(queryString.transactionHash);
+  const { actions: transactionActions } = useTransactionSlice();
+  const transactionDetail = useSelector(getTransactionDetail);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (transactionHash) {
+      dispatch(transactionActions.doFetchTransactionDetail(transactionHash));
+    }
+  }, [dispatch, transactionActions, transactionHash]);
   return (
     <MainLayout title={t('transactionDetail.title')} headerTitle={t('transactionDetail.title')}>
       <Container>
         <SectionTitle>{t('transactionDetail.title') as ReactNode}</SectionTitle>
         <InfoWrapper>
-          <TransactionDetailInfo>Tx Hash: </TransactionDetailInfo>
-          <TransactionDetailInfo>Timestamp</TransactionDetailInfo>
-          <TransactionDetailInfo>From</TransactionDetailInfo>
-          <TransactionDetailInfo>To</TransactionDetailInfo>
-          <TransactionDetailInfo>Block</TransactionDetailInfo>
+          <TransactionDetailInfo>{`Tx Hash: ${transactionDetail?.hash ?? ''}`}</TransactionDetailInfo>
+          <TransactionDetailInfo>{`Timestamp: ${transactionDetail?.timestamp ?? 0}`}</TransactionDetailInfo>
+          <TransactionDetailInfo>{`From: ${transactionDetail?.from ?? ''}`}</TransactionDetailInfo>
+          <TransactionDetailInfo>{`To: ${transactionDetail?.to ?? ''}`}</TransactionDetailInfo>
+          {/* <TransactionDetailInfo>Block</TransactionDetailInfo> */}
         </InfoWrapper>
       </Container>
     </MainLayout>

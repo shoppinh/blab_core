@@ -4,7 +4,7 @@
 
 import { lazyLoad } from 'utils/loadable';
 
-export const ETable = lazyLoad(
+export const EBackdropLoading = lazyLoad(
   () => import('./index'),
   (module) => module.default,
   {

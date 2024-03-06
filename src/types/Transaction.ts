@@ -8,6 +8,16 @@ export interface CreateTransactionQuery {
   publicKey: string;
 }
 
+export interface SignAndCreateTransactionQuery {
+  from: string;
+  to: string;
+  value: number;
+  data: string;
+  timestamp: number;
+  publicKey: string;
+  privateKey: string;
+}
+
 export interface SignTransactionQuery {
   privateKey: string;
   from: string;
@@ -18,11 +28,13 @@ export interface SignTransactionQuery {
 }
 
 export interface TransactionItem {
-  txHash: string;
+  hash: string;
+  signature: string;
   from: string;
   to: string;
   value: number;
-  date: string;
+  timestamp: number;
+  data: string;
 }
 
 export interface TransactionState {
@@ -34,6 +46,7 @@ export interface TransactionState {
 export interface TransactionPayload {
   transaction?: TransactionItem;
   transactionPool?: TransactionItem[];
+  transactionHistory?: TransactionItem[];
 }
 
 export enum TransactionErrorType {
@@ -42,6 +55,6 @@ export enum TransactionErrorType {
 }
 
 export interface TransactionError {
-  code: TransactionErrorType | null;
+  code?: TransactionErrorType | null;
   message?: string;
 }

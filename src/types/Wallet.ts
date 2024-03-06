@@ -25,6 +25,6 @@ export enum WalletErrorType {
 }
 
 export interface WalletError {
-  code: WalletErrorType | null;
+  code?: WalletErrorType | null;
   message?: string;
 }

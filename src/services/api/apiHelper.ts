@@ -49,6 +49,12 @@ export function* apiCreateTransaction(query: CreateTransactionQuery): unknown {
 export function* apiGetTransactionPool(): unknown {
   return yield call(api.getTransactionPool);
 }
+export function* apiGetTransactionHistory(address: string): unknown {
+  return yield call(api.getTransactionHistory, address);
+}
+export function* apiGetTransactionDetail(hash: string): unknown {
+  return yield call(api.getTransactionDetail, hash);
+}
 export function* apiSignTransaction(query: SignTransactionQuery): unknown {
   return yield call(api.signTransaction, query);
 }

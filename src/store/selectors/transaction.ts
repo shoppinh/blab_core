@@ -8,6 +8,13 @@ export const getTransactionPool = createSelector(
   (state) => state.data.transactionPool
 );
 
-export const getTransaction = createSelector([selectedDomain], (state) => state.data.transaction);
+export const getTransactionDetail = createSelector(
+  [selectedDomain],
+  (state) => state.data.transaction
+);
 export const getTransactionLoading = createSelector([selectedDomain], (state) => state.loading);
 export const getTransactionError = createSelector([selectedDomain], (state) => state.error);
+export const getTransactionHistory = createSelector(
+  [selectedDomain],
+  (state) => state.data.transactionHistory
+);

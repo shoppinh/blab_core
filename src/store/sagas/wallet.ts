@@ -21,10 +21,10 @@ export function mapKeyPairData(data: any) {
 export function* generateKeyPairSaga(): Generator<any, void, any> {
   try {
     const res = yield call(apiGenerateKeyPair);
-    if (res?.data) {
+    if (res?.data?.data) {
       yield put(actions.doGeneratedKeyPair(mapKeyPairData(res.data.data)));
     } else {
-      yield put(actions.Error('Error generating key pair'));
+      yield put(actions.Error(res.data.error));
     }
   } catch (error) {
     console.log('🚀 ~ function*generateKeyPairSaga ~ error:', error);
@@ -35,10 +35,10 @@ export function* fetchBalanceSaga({
 }: PayloadAction<BalanceQuery>): Generator<any, void, any> {
   try {
     const res = yield call(apiGetBalance, payload);
-    if (res?.data) {
+    if (res?.data?.data) {
       yield put(actions.doFetchedBalance(res.data.data));
     } else {
-      yield put(actions.Error('Error fetching balance'));
+      yield put(actions.Error(res.data.error));
     }
   } catch (error) {
     console.log('🚀 ~ function*fetchBalanceSaga ~ error:', error);

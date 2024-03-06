@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getBlocks } from 'store/selectors/block';
+import { getBlockLoading, getBlocks } from 'store/selectors/block';
 import { useBlockSlice } from 'store/slices/block';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
@@ -63,7 +63,7 @@ const BlockList = () => {
   const { actions: blockActions } = useBlockSlice();
   const blocks = useSelector(getBlocks);
   const dispatch = useDispatch();
-
+  const blockLoading = useSelector(getBlockLoading);
   const columns: ColumnProps[] = useMemo(() => {
     return [
       {
@@ -75,6 +75,9 @@ const BlockList = () => {
         label: t('table.hash'),
         accessor: 'hash',
         render: (item: BlockListItem) => item.hash,
+        style: {
+          wordBreak: 'break-all',
+        },
       },
       {
         label: t('table.miner'),
@@ -87,7 +90,7 @@ const BlockList = () => {
       {
         label: t('table.mined'),
         accessor: 'mined',
-        render: (item: BlockListItem) => item.mined,
+        render: (item: BlockListItem) => new Date(item.timestamp * 1000).toLocaleString(),
       },
       {
         label: t('table.txCount'),
@@ -95,14 +98,9 @@ const BlockList = () => {
         render: (item: BlockListItem) => item.transactions.length,
       },
       {
-        label: t('table.total'),
-        accessor: 'total',
-        render: (item: BlockListItem) => item.total,
-      },
-      {
-        label: t('table.sent'),
-        accessor: 'sent',
-        render: (item: BlockListItem) => item.sent,
+        label: t('table.totalSent'),
+        accessor: 'totalSent',
+        render: (item: BlockListItem) => item.transactions.reduce((acc, tx) => acc + tx.value, 0),
       },
     ];
   }, [t]);
@@ -114,12 +112,11 @@ const BlockList = () => {
             blockNumber: block.blockNumber,
             hash: block.hash,
             miner: block.miner,
-            mined: block.mined,
             txCount: block.transactions.length,
-            total: block.total,
-            sent: block.sent,
+            totalSent: block.totalSent,
             difficulty: block.difficulty,
             transactions: block.transactions,
+            timestamp: block.timestamp,
           };
         })
       : [];
@@ -173,7 +170,7 @@ const BlockList = () => {
             setCurrentPage={setCurrentPage}
             totalItems={blocks?.length || 0}
             rowsPerPage={ROWS_PER_PAGE}
-            isLoading={false}
+            isLoading={blockLoading ?? false}
             tableSetting={{
               tableLayout: 'fixed',
             }}

@@ -1,9 +1,9 @@
-import { EButton, ETable } from 'app/components';
+import { EBackdropLoading, EButton, ETable } from 'app/components';
 import { ColumnProps } from 'app/components/ETable/ETableHead';
 import { MainLayout } from 'app/layouts';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getTransactionPool } from 'store/selectors/transaction';
+import { getTransactionLoading, getTransactionPool } from 'store/selectors/transaction';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 import { TransactionItem } from 'types/Transaction';
@@ -11,6 +11,10 @@ import { ROWS_PER_PAGE } from 'utils/constants';
 import { useTable } from 'utils/hooks';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTransactionSlice } from 'store/slices/transaction';
+import { blockActions, useBlockSlice } from 'store/slices/block';
+import { getKeyPair } from 'store/selectors/wallet';
+import { toast } from 'react-toastify';
+import { getBlockError, getBlockLoading } from 'store/selectors/block';
 
 const Container = styled.div`
   display: flex;
@@ -52,17 +56,28 @@ const TransactionPool = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { actions: transactionActions } = useTransactionSlice();
+  const { actions: blockActions } = useBlockSlice();
+  const [isFormSent, setIsFormSent] = useState(false);
+  const blockLoading = useSelector(getBlockLoading);
+  const transactionLoading = useSelector(getTransactionLoading);
+  const blockError = useSelector(getBlockError);
   const columns: ColumnProps[] = useMemo(() => {
     return [
       {
         label: t('table.txHash'),
         accessor: 'txHash',
-        render: (item: TransactionItem) => item.txHash,
+        render: (item: TransactionItem) => item.hash,
+        style: {
+          wordBreak: 'break-all',
+        },
       },
       {
         label: t('table.from'),
         accessor: 'from',
         render: (item: TransactionItem) => item.from,
+        style: {
+          wordBreak: 'break-all',
+        },
       },
       {
         label: t('table.to'),
@@ -75,7 +90,7 @@ const TransactionPool = () => {
       {
         label: t('table.date'),
         accessor: 'date',
-        render: (item: TransactionItem) => item.date,
+        render: (item: TransactionItem) => new Date(item.timestamp).toLocaleString(),
       },
       {
         label: t('table.value'),
@@ -89,14 +104,16 @@ const TransactionPool = () => {
 
   // Mapping data to render
   const renderedData: TransactionItem[] = useMemo(() => {
-    return Array.isArray(transactionPool) && transactionPool.length > 0
+    return transactionPool && transactionPool.length > 0
       ? transactionPool.map((transaction) => {
           return {
-            txHash: transaction.txHash,
+            hash: transaction.hash,
             from: transaction.from,
             to: transaction.to,
-            date: transaction.date,
+            timestamp: transaction.timestamp,
             value: transaction.value,
+            signature: transaction.signature,
+            data: transaction.data,
           };
         })
       : [];
@@ -107,16 +124,30 @@ const TransactionPool = () => {
     ROWS_PER_PAGE,
     ''
   );
+  const keyPair = useSelector(getKeyPair);
 
   // Handle mine button click
-  const handleMine = useCallback(() => {}, []);
+  const handleMine = useCallback(() => {
+    if (keyPair?.address) {
+      setIsFormSent(true);
+      dispatch(blockActions.doMineBlock({ minerAddress: keyPair.address }));
+    }
+  }, [blockActions, dispatch, keyPair?.address]);
 
   // Fetch transaction pool
   useEffect(() => {
-    if (!transactionPool) {
-      dispatch(transactionActions.doFetchTransactionPool());
+    dispatch(transactionActions.doFetchTransactionPool());
+  }, []);
+
+  useEffect(() => {
+    if (isFormSent && !blockLoading && blockError) {
+      toast.error(blockError.message ?? 'Error');
+      setIsFormSent(false);
+    } else if (isFormSent && !blockLoading && !blockError) {
+      toast.success('Mine block successfully');
+      setIsFormSent(false);
     }
-  }, [dispatch, transactionActions, transactionPool]);
+  }, [isFormSent, blockLoading, blockError]);
   return (
     <MainLayout title={t('transactionPool.title')} headerTitle={t('transactionPool.title')}>
       <Container>
@@ -130,14 +161,15 @@ const TransactionPool = () => {
           setCurrentPage={setCurrentPage}
           totalItems={transactionPool?.length || 0}
           rowsPerPage={ROWS_PER_PAGE}
-          isLoading={false}
+          isLoading={transactionLoading ?? false}
           tableSetting={{
             tableLayout: 'fixed',
           }}
         />
         <ButtonWrapper>
-          <MineButton>{t('transactionPool.mine')}</MineButton>
+          <MineButton onClick={handleMine}>{t('transactionPool.mine')}</MineButton>
         </ButtonWrapper>
+        <EBackdropLoading isShow={blockLoading ?? false} />
       </Container>
     </MainLayout>
   );
