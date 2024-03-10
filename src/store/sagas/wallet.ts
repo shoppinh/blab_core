@@ -26,8 +26,9 @@ export function* generateKeyPairSaga(): Generator<any, void, any> {
     } else {
       yield put(actions.Error(res.data.error));
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log('🚀 ~ function*generateKeyPairSaga ~ error:', error);
+    yield put(actions.Error(error?.message ?? 'Error in calling API'));
   }
 }
 export function* fetchBalanceSaga({
@@ -40,7 +41,8 @@ export function* fetchBalanceSaga({
     } else {
       yield put(actions.Error(res.data.error));
     }
-  } catch (error) {
+  } catch (error: any) {
     console.log('🚀 ~ function*fetchBalanceSaga ~ error:', error);
+    yield put(actions.Error(error?.message ?? 'Error in calling API'));
   }
 }
