@@ -169,7 +169,8 @@
     "title": "Transaction",
     "data": "Data",
     "to": "To",
-    "send": "Send"
+    "send": "Send",
+    "value": "Value"
   },
   "transactionDetail": {
     "title": "Transaction Detail"

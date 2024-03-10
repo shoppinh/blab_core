@@ -74,6 +74,7 @@ const Transaction = () => {
   const { actions: transactionActions } = useTransactionSlice();
   const [toAddress, setToAddress] = useState('');
   const [data, setData] = useState('');
+  const [value, setValue] = useState(0);
   const [isFormSent, setIsFormSent] = useState(false);
   // Handle send transaction
   const handleSend = useCallback(() => {
@@ -84,7 +85,7 @@ const Transaction = () => {
         transactionActions.doCreateTransaction({
           data,
           to: toAddress,
-          value: 1,
+          value: value > 0 ? value : 0,
           // get current timestamp in seconds
           timestamp: proximateTimestamp,
           from: keyPair?.address ?? '',
@@ -101,6 +102,7 @@ const Transaction = () => {
     keyPair?.publicKey,
     toAddress,
     transactionActions,
+    value,
   ]);
 
   const isLoading = useSelector(getTransactionLoading);
@@ -135,6 +137,14 @@ const Transaction = () => {
               <EInput
                 placeholder={t('transaction.to')}
                 onChange={(e) => setToAddress(e.target.value)}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <InputTitle>{t('transaction.value') as ReactNode}</InputTitle>
+              <EInput
+                placeholder={t('transaction.value')}
+                type='number'
+                onChange={(e) => setValue(Number(e.target.value))}
               />
             </InputWrapper>
             <InputWrapper>

@@ -167,7 +167,8 @@
     "title": "Giao dịch",
     "to": "Đến",
     "data": "Dữ liệu",
-    "send": "Gửi"
+    "send": "Gửi",
+    "value": "Giá trị"
   },
   "transactionDetail": {
     "title": "Chi tiết giao dịch"
