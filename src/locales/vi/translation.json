@@ -191,5 +191,8 @@
   },
   "blabLibrary": {
     "title": "BLAB Library"
+  },
+  "blabCore": {
+    "title": "BLAB Core"
   }
 }

@@ -13,6 +13,7 @@ interface Props {
   children?: React.ReactNode;
   headerTitle: string;
   title: string;
+  noHeader?: boolean;
 }
 
 const Center = styled.div`
@@ -51,7 +52,7 @@ const NavigationBottomBar = styled.div`
   `}
 `;
 
-const MainLayout: React.FC<Props> = ({ children, headerTitle, title }) => {
+const MainLayout: React.FC<Props> = ({ children, headerTitle, title, noHeader = false }) => {
   const { actions: walletActions } = useWalletSlice();
   const dispatch = useDispatch();
   const keypair = useSelector(getKeyPair);
@@ -64,7 +65,7 @@ const MainLayout: React.FC<Props> = ({ children, headerTitle, title }) => {
     <BaseLayout title={title}>
       <Container>
         <MainContent>
-          <Header headerTitle={headerTitle} />
+          {!noHeader && <Header headerTitle={headerTitle} />}
           <CenterWrapper>
             <Center>{!!children && children}</Center>
           </CenterWrapper>

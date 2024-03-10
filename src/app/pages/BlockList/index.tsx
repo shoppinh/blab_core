@@ -140,7 +140,7 @@ const BlockList = () => {
 
   useEffect(() => {
     dispatch(blockActions.doFetchBlocks());
-  }, [blockActions, dispatch]);
+  }, []);
   return (
     <MainLayout title={t('home.title')} headerTitle={t('home.title')}>
       <Container>

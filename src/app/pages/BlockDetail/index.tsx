@@ -91,7 +91,7 @@ const BlockDetail = () => {
         },
       },
       {
-        label: t('table.data'),
+        label: t('table.date'),
         accessor: 'data',
         render: (item: TransactionItem) => new Date(item.timestamp).toLocaleString(),
       },
