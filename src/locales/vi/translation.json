@@ -63,7 +63,6 @@
     "accountHasBeenDeactivated": "Tài khoản của bạn đã bị hủy kích hoạt. Vui lòng liên hệ với người quản trị trang web của bạn",
     "goBackToLogin": "Quay lại trang đăng nhập",
     "forgotPasswordInstruction": "Liên hệ với người quản trị trang web của bạn để lấy lại mật khẩu. Đây là số diện thoại của quản trị viên: <0>{{phoneNumber}}</0>."
-
   },
   "logout": {
     "title": "Đăng xuất"
@@ -137,7 +136,7 @@
     "areYouMoreThan18YearsOld": "Bạn đã đủ 18 tuổi chưa?",
     "ihaveReadAndAcceptTheTCAndPP": "Tôi đã đọc và chấp nhập <1>Các điều khoản & điều kiện</1> và <3>Chính sách bảo mật.</3>",
     "yes": "Có",
-    "no": "Không"  
+    "no": "Không"
   },
   "localizationConfig": {
     "title": "Đổi ngôn ngữ",
@@ -174,8 +173,8 @@
     "title": "Chi tiết giao dịch"
   },
   "transactionPool": {
-    "title": "Bể chứa giao dịch"
-  
+    "title": "Bể chứa giao dịch",
+    "mine": "Đào"
   },
   "blockList": {
     "title": "Danh sách khối"
