@@ -1,6 +1,7 @@
 import {
   BlockDetail,
   BlockList,
+  Contract,
   Home,
   Login,
   NotFound,
@@ -38,6 +39,7 @@ export function App() {
         <Route path={SiteMap.transactionPool.link} element={<TransactionPool />} />
         <Route path={SiteMap.transactionDetail.link} element={<TransactionDetail />} />
         <Route path={SiteMap.profile.link} element={<Profile />} />
+        <Route path={SiteMap.contract.link} element={<Contract />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -8,7 +8,7 @@ import { BlockDetail } from './BlockDetail/Loadable';
 import { NotFound } from './404NotFound/Loadable';
 import { Profile } from './Profile/Loadable';
 import { TransactionDetail } from './TransactionDetail/Loadable';
-
+import { Contract } from './Contract/Loadable';
 export {
   Home,
   BlockList,
@@ -20,4 +20,5 @@ export {
   NotFound,
   Profile,
   TransactionDetail,
+  Contract,
 };

@@ -42,7 +42,8 @@ export function* fetchBlocksSaga(): Generator<any, void, any> {
     }
   } catch (error: any) {
     console.log('🚀 ~ function*fetchBlocksSaga ~ error:', error);
-    yield put(actions.Error(error?.message ?? 'Error fetching blocks'));
+  } finally {
+    yield put(actions.finished());
   }
 }
 export function* fetchBlockSaga({ payload }: PayloadAction<BlockQuery>): Generator<any, void, any> {
@@ -55,7 +56,8 @@ export function* fetchBlockSaga({ payload }: PayloadAction<BlockQuery>): Generat
     }
   } catch (error: any) {
     console.log('🚀 ~ function*fetchBlockSaga ~ error:', error);
-    yield put(actions.Error(error?.message ?? 'Error in calling API'));
+  } finally {
+    yield put(actions.finished());
   }
 }
 export function* mineBlockSaga({
@@ -70,6 +72,7 @@ export function* mineBlockSaga({
     }
   } catch (error: any) {
     console.log('🚀 ~ function*mineBlockSaga ~ error:', error);
-    yield put(actions.Error(error?.message ?? 'Error in calling API'));
+  } finally {
+    yield put(actions.finished());
   }
 }

@@ -53,7 +53,8 @@ export function* createTransactionSaga({
     }
   } catch (error: any) {
     console.log('🚀 ~ function*signTransactionSaga ~ error:', error);
-    yield put(actions.Error(error?.message ?? 'Error in calling API'));
+  } finally {
+    yield put(actions.finished());
   }
 }
 export function* fetchTransactionPoolSaga(): Generator<any, void, any> {
@@ -66,7 +67,8 @@ export function* fetchTransactionPoolSaga(): Generator<any, void, any> {
     }
   } catch (error: any) {
     console.log('🚀 ~ function*fetchTransactionPoolSaga ~ error:', error);
-    yield put(actions.Error(error?.message ?? 'Error in calling API'));
+  } finally {
+    yield put(actions.finished());
   }
 }
 
@@ -82,7 +84,8 @@ export function* fetchTransactionHistorySaga({
     }
   } catch (error: any) {
     console.log('🚀 ~ function*fetchTransactionHistorySaga ~ error:', error);
-    yield put(actions.Error(error?.message ?? 'Error in calling API'));
+  } finally {
+    yield put(actions.finished());
   }
 }
 
@@ -98,6 +101,7 @@ export function* fetchTransactionDetailSaga({
     }
   } catch (error: any) {
     console.log('🚀 ~ function*fetchTransactionDetailSaga ~ error:', error);
-    yield put(actions.Error(error?.message ?? 'Error in calling API'));
+  } finally {
+    yield put(actions.finished());
   }
 }

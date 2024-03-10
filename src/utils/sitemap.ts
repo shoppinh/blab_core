@@ -56,6 +56,11 @@ const SiteMap = {
     title: 'blabCore.title',
     link: process.env.BLAB_CORE_URL ?? 'http://127.4.240.104:3000',
   },
+  contract: {
+    title: 'contract.title',
+    link: '/contract',
+    isProtected: true,
+  },
 };
 
 export { SiteMap };

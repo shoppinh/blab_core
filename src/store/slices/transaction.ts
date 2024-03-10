@@ -73,6 +73,9 @@ const slice = createSlice({
       };
       state.loading = false;
     },
+    finished(state) {
+      state.loading = false;
+    },
   },
 });
 
