@@ -106,7 +106,6 @@ const Transaction = () => {
   ]);
 
   const isLoading = useSelector(getTransactionLoading);
-  console.log('🚀 ~ Transaction ~ isLoading:', isLoading);
   const transactionError = useSelector(getTransactionError);
 
   // Fetch balance on load

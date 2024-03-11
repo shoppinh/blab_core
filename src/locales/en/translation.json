@@ -196,5 +196,12 @@
   },
   "blabCore": {
     "title": "BLAB Core"
+  },
+  "contract": {
+    "title": "Contract",
+    "set": "Set",
+    "get": "Get",
+    "result": "Result",
+    "input": "Input"
   }
 }
