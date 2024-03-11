@@ -46,15 +46,15 @@ const SiteMap = {
   },
   blabLibrary: {
     title: 'blabLibrary.title',
-    link: process.env.BLAB_LIBRARY_URL ?? 'http://127.4.240.104:3002',
+    link: process.env.REACT_APP_BLAB_LIBRARY_URL ?? 'http://127.4.240.104:3002',
   },
   blabBuild: {
     title: 'blabBuild.title',
-    link: process.env.BLAB_BUILD_URL ?? 'http://127.4.240.104:3001',
+    link: process.env.REACT_APP_BLAB_BUILD_URL ?? 'http://127.4.240.104:3001',
   },
   blabCore: {
     title: 'blabCore.title',
-    link: process.env.BLAB_CORE_URL ?? 'http://127.4.240.104:3000',
+    link: process.env.REACT_APP_BLAB_CORE_URL ?? 'http://127.4.240.104:3000',
   },
   contract: {
     title: 'contract.title',
