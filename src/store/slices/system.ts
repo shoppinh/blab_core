@@ -3,9 +3,13 @@ import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { SystemPayload, SystemState } from 'types/System';
 import { systemSaga } from '../sagas/system';
+import { loadState } from 'store/localStorage';
 
+const systemCached = loadState()?.system;
 export const initialState: SystemState = {
-  data: {},
+  data: {
+    ...systemCached?.data,
+  },
   error: null,
   loading: false,
 };

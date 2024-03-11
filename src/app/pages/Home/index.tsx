@@ -100,14 +100,14 @@ const Home = () => {
         name: t(SiteMap.blabCore.title),
       },
       {
-        id: 2,
-        url: SiteMap.blabBuild.link,
-        name: t(SiteMap.blabBuild.title),
-      },
-      {
         id: 3,
         url: SiteMap.blabLibrary.link,
         name: t(SiteMap.blabLibrary.title),
+      },
+      {
+        id: 2,
+        url: SiteMap.blabBuild.link,
+        name: t(SiteMap.blabBuild.title),
       },
     ];
   }, [t]);

@@ -1,18 +1,26 @@
 # Use the official Node.js image with the specified version
 FROM node:16.20.2
-# Set working directory
+# set working directory
 WORKDIR /app
 
+# Copies package.json and package-lock.json to Docker environment
+COPY package*.json ./
 
-# Copy package.json and to the working directory
-COPY package.json ./
+# Installs all node packages
+RUN npm install
 
-# Install npm globally
-RUN npm install 
-
-# Copy the rest of the application code
+# Copies everything over to Docker environment
 COPY . .
 
-# Command to run your application
-CMD ["npm", "start"]
+# Build for production.
+RUN npm run build --production
 
+# Install `serve` to run the application.
+RUN npm install -g serve
+
+# Uses port which is used by the actual application
+EXPOSE 3000
+
+# Run application
+#CMD [ "npm", "start" ]
+CMD serve -s build

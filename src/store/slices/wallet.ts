@@ -1,10 +1,15 @@
+import { loadState } from 'store/localStorage';
 import { BalanceQuery, WalletState } from 'types/Wallet';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { walletSaga } from '../sagas/wallet';
 
+const walletCache = loadState()?.wallet;
+
 export const initialState: WalletState = {
-  data: {},
+  data: {
+    ...walletCache?.data,
+  },
   error: null,
   loading: false,
 };

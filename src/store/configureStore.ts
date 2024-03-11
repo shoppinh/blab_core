@@ -46,6 +46,10 @@ export function configureAppStore() {
       const persistedStateCache = loadState();
       const sharedCookie = loadDocumentCookieState();
       const cookieAuth = sharedCookie?.auth;
+      const currentStore = store.getState() ?? {};
+      const loadData = (key: string) => ({
+        data: { ...(currentStore[key] ? currentStore[key]?.data : persistedStateCache[key]?.data) },
+      });
       let sessionCache = {};
       if (!persistedStateCache?.session?.data?.auth?.rememberMe) {
         if (
@@ -94,13 +98,8 @@ export function configureAppStore() {
               : persistedStateCache?.session?.data),
           },
         },
-        system: {
-          data: {
-            ...(store.getState().system
-              ? store.getState().system.data
-              : persistedStateCache?.system?.data),
-          },
-        },
+        system: loadData('system'),
+        wallet: loadData('wallet'),
       });
     }, 1000)
   );
