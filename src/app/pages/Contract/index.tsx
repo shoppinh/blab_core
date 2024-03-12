@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import greeterAbi from './abi.json';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
-import { EButton, EInput } from 'app/components';
+import { EBackdropLoading, EButton, EInput } from 'app/components';
 import { MainLayout } from 'app/layouts';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -71,36 +71,43 @@ const Contract = () => {
   const addressContract = process.env.REACT_APP_CONTRACT_ADDRESS ?? '';
   const [input, setInput] = useState<string>('');
   const [result, setResult] = useState<unknown>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t } = useTranslation();
   const getGreeting = useCallback(async () => {
-    {
-      const contract = new web3.eth.Contract(greeterAbi, addressContract);
-      const result = await contract.methods.greet().call();
-      setResult(result);
-    }
+    const contract = new web3.eth.Contract(greeterAbi, addressContract);
+    const result = await contract.methods.greet().call();
+    setResult(result);
   }, [addressContract, web3.eth.Contract]);
   const setGreeting = useCallback(
     async (input: string) => {
-      const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-      const contract = new web3.eth.Contract(greeterAbi, addressContract);
-      const transaction = contract.methods.setGreeting(input);
+      setIsLoading(true);
+      try {
+        const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+        const contract = new web3.eth.Contract(greeterAbi, addressContract);
+        const transaction = contract.methods.setGreeting(input);
 
-      const gas = await transaction.estimateGas({ from: account.address });
-      const gasPrice = await web3.eth.getGasPrice();
-      const data = transaction.encodeABI();
-      const nonce = await web3.eth.getTransactionCount(account.address);
-      const signedTransaction = await web3.eth.accounts.signTransaction(
-        {
-          to: addressContract,
-          data,
-          gas,
-          gasPrice,
-          nonce,
-        },
-        privateKey
-      );
-      await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
-      toast.success('Transaction sent');
+        const gas = await transaction.estimateGas({ from: account.address });
+        const gasPrice = await web3.eth.getGasPrice();
+        const data = transaction.encodeABI();
+        const nonce = await web3.eth.getTransactionCount(account.address);
+        const signedTransaction = await web3.eth.accounts.signTransaction(
+          {
+            to: addressContract,
+            data,
+            gas,
+            gasPrice,
+            nonce,
+          },
+          privateKey
+        );
+        await web3.eth.sendSignedTransaction(signedTransaction.rawTransaction);
+        toast.success('Transaction sent');
+      } catch (error) {
+        console.error('Error sending transaction', error);
+        toast.error('Error sending transaction');
+      } finally {
+        setIsLoading(false);
+      }
     },
     [addressContract, privateKey, web3.eth]
   );
@@ -127,6 +134,7 @@ const Contract = () => {
           </ResultSection>
         </ContentWrapper>
       </Container>
+      <EBackdropLoading isShow={isLoading ?? false} />
     </MainLayout>
   );
 };
