@@ -130,8 +130,8 @@ const BlockDetail = () => {
         <BlockDetailSection>
           <SectionTitle>{`BLAB block: ${blockDetail?.blockNumber}`}</SectionTitle>
           <BlockDetailInfo>{`Hash: ${blockDetail?.hash}`}</BlockDetailInfo>
-          <BlockDetailInfo>{`Last Hash: ${blockDetail?.lastHash ?? ''}`}</BlockDetailInfo>
-          <BlockDetailInfo>{`Distance: ${blockDetail?.distance ?? ''}`}</BlockDetailInfo>
+          <BlockDetailInfo>{`Last Hash: ${blockDetail?.parentHash ?? ''}`}</BlockDetailInfo>
+          <BlockDetailInfo>{`Distance: ${new Date(blockDetail?.timestamp ? blockDetail.timestamp * 1000 : 0).toLocaleString() ?? ''}`}</BlockDetailInfo>
           <BlockDetailInfo>{`Transactions: ${blockDetail?.transactions?.length}`}</BlockDetailInfo>
           <BlockDetailInfo>{`Nonce: ${blockDetail?.nonce}`}</BlockDetailInfo>
         </BlockDetailSection>

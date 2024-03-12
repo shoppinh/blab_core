@@ -48,7 +48,9 @@ export function configureAppStore() {
       const cookieAuth = sharedCookie?.auth;
       const currentStore = store.getState() ?? {};
       const loadData = (key: string) => ({
-        data: { ...(currentStore[key] ? currentStore[key]?.data : persistedStateCache[key]?.data) },
+        data: {
+          ...(currentStore?.[key] ? currentStore?.[key]?.data : persistedStateCache?.[key]?.data),
+        },
       });
       let sessionCache = {};
       if (!persistedStateCache?.session?.data?.auth?.rememberMe) {

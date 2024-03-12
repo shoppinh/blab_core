@@ -18,8 +18,8 @@ export type BlockListRenderedItem = Omit<BlockListItem, 'binary' | 'nonce' | 'pa
 export interface BlockDetail {
   blockNumber: number;
   hash: string;
-  lastHash: string;
-  distance: string;
+  parentHash: string;
+  timestamp: number;
   transactions: BlockListItem[];
   nonce: number;
 }

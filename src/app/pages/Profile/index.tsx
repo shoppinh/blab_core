@@ -96,10 +96,10 @@ const Profile = () => {
   const [isShowPrivateKey, setIsShowPrivateKey] = useState(false);
   // fetch balance
   useEffect(() => {
-    if (keyPair?.address && balance === undefined) {
+    if (keyPair?.address) {
       dispatch(walletActions.doFetchBalance({ address: keyPair.address }));
     }
-  }, [balance, dispatch, keyPair?.address, walletActions]);
+  }, [dispatch, keyPair?.address, walletActions]);
 
   // fetch transaction history
   useEffect(() => {
