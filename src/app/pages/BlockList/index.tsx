@@ -11,6 +11,7 @@ import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 import { BlockListItem, BlockListRenderedItem } from 'types/Block';
 import { ROWS_PER_PAGE, queryString } from 'utils/constants';
+import { paginate } from 'utils/helpers';
 import { useTable } from 'utils/hooks';
 import { SiteMap } from 'utils/sitemap';
 
@@ -105,28 +106,15 @@ const BlockList = () => {
     ];
   }, [t]);
 
-  const renderedData: BlockListRenderedItem[] = useMemo(() => {
-    return Array.isArray(blocks) && blocks.length > 0
-      ? blocks?.map((block) => {
-          return {
-            blockNumber: block.blockNumber,
-            hash: block.hash,
-            miner: block.miner,
-            txCount: block.transactions.length,
-            totalSent: block.totalSent,
-            difficulty: block.difficulty,
-            transactions: block.transactions,
-            timestamp: block.timestamp,
-          };
-        })
-      : [];
-  }, [blocks]);
   const { paginationRange, setCurrentPage, currentPage } = useTable(
     blocks?.length ?? 0,
     columns,
     ROWS_PER_PAGE,
     ''
   );
+  const renderedData: BlockListRenderedItem[] = useMemo(() => {
+    return paginate(blocks ?? [], currentPage, ROWS_PER_PAGE);
+  }, [blocks, currentPage]);
   const navigate = useNavigate();
   const handleOnClickBlockDetail = useCallback(
     (blockNumber: number) => {

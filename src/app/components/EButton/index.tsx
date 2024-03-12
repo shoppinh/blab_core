@@ -17,7 +17,7 @@ export const EButton = styled(ButtonUnstyled)<ButtonProp>`
       case 'danger':
         return tw`bg-red-500 text-white`;
       default:
-        return `background-color: ${p.theme.background}; color: ${p.theme.text};`;
+        return `background-color: ${p.theme.background}; color: ${p.theme.text}; border: 1px solid ${p.theme.text}`;
     }
   }}
   ${(p) => p.isHidden && tw`hidden`}

@@ -1,17 +1,17 @@
 import { ETable } from 'app/components';
 import { ColumnProps } from 'app/components/ETable/ETableHead';
 import { MainLayout } from 'app/layouts';
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBlock } from 'store/selectors/block';
-import { getTransactionPool } from 'store/selectors/transaction';
 import { useBlockSlice } from 'store/slices/block';
 import { useTransactionSlice } from 'store/slices/transaction';
 import { pxToRem } from 'styles/theme/utils';
 import { styled } from 'twin.macro';
 import { TransactionItem } from 'types/Transaction';
 import { ROWS_PER_PAGE, queryString } from 'utils/constants';
+import { paginate } from 'utils/helpers';
 import { useQuery, useTable } from 'utils/hooks';
 
 const Container = styled.div`
@@ -48,7 +48,6 @@ const BlockDetail = () => {
   const dispatch = useDispatch();
   const { actions: blockActions } = useBlockSlice();
   const { actions: transactionActions } = useTransactionSlice();
-  const transactionPool = useSelector(getTransactionPool);
   const blockDetail = useSelector(getBlock);
 
   useEffect(() => {
@@ -93,7 +92,7 @@ const BlockDetail = () => {
       {
         label: t('table.date'),
         accessor: 'data',
-        render: (item: TransactionItem) => new Date(item.timestamp).toLocaleString(),
+        render: (item: TransactionItem) => new Date(item.timestamp * 1000).toLocaleString(),
       },
       {
         label: t('table.value'),
@@ -102,28 +101,16 @@ const BlockDetail = () => {
       },
     ];
   }, [t]);
-  const TOTAL_ITEMS = 20;
-  const renderedData: TransactionItem[] = useMemo(() => {
-    return Array.isArray(transactionPool) && transactionPool.length > 0
-      ? transactionPool?.map((transaction) => {
-          return {
-            hash: transaction.hash,
-            from: transaction.from,
-            to: transaction.to,
-            timestamp: transaction.timestamp,
-            value: transaction.value,
-            signature: transaction.signature,
-            data: transaction.data,
-          };
-        })
-      : [];
-  }, [transactionPool]);
+
   const { paginationRange, setCurrentPage, currentPage } = useTable(
-    TOTAL_ITEMS ?? 0,
+    blockDetail?.transactions?.length ?? 0,
     columns,
     ROWS_PER_PAGE,
     ''
   );
+  const renderedData = useMemo(() => {
+    return paginate(blockDetail?.transactions ?? [], currentPage, ROWS_PER_PAGE);
+  }, [blockDetail?.transactions, currentPage]);
   return (
     <MainLayout title={t('blockDetail.title')} headerTitle={t('blockDetail.title')}>
       <Container>
@@ -144,7 +131,7 @@ const BlockDetail = () => {
             handleSorting={() => {}}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            totalItems={TOTAL_ITEMS || 0}
+            totalItems={blockDetail?.transactions?.length ?? 0}
             rowsPerPage={ROWS_PER_PAGE}
             isLoading={false}
             tableSetting={{

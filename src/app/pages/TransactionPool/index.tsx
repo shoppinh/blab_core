@@ -15,6 +15,7 @@ import { blockActions, useBlockSlice } from 'store/slices/block';
 import { getKeyPair } from 'store/selectors/wallet';
 import { toast } from 'react-toastify';
 import { getBlockError, getBlockLoading } from 'store/selectors/block';
+import { paginate } from 'utils/helpers';
 
 const Container = styled.div`
   display: flex;
@@ -103,27 +104,16 @@ const TransactionPool = () => {
   const transactionPool = useSelector(getTransactionPool);
 
   // Mapping data to render
-  const renderedData: TransactionItem[] = useMemo(() => {
-    return transactionPool && transactionPool.length > 0
-      ? transactionPool.map((transaction) => {
-          return {
-            hash: transaction.hash,
-            from: transaction.from,
-            to: transaction.to,
-            timestamp: transaction.timestamp,
-            value: transaction.value,
-            signature: transaction.signature,
-            data: transaction.data,
-          };
-        })
-      : [];
-  }, [transactionPool]);
+
   const { paginationRange, setCurrentPage, currentPage } = useTable(
     transactionPool?.length ?? 0,
     columns,
     ROWS_PER_PAGE,
     ''
   );
+  const renderedData: TransactionItem[] = useMemo(() => {
+    return paginate(transactionPool ?? [], currentPage, ROWS_PER_PAGE);
+  }, [currentPage, transactionPool]);
   const keyPair = useSelector(getKeyPair);
 
   // Handle mine button click

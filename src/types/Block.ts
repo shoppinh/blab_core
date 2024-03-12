@@ -20,7 +20,7 @@ export interface BlockDetail {
   hash: string;
   parentHash: string;
   timestamp: number;
-  transactions: BlockListItem[];
+  transactions: TransactionItem[];
   nonce: number;
 }
 
