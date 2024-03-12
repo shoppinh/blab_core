@@ -91,7 +91,7 @@ const TransactionPool = () => {
       {
         label: t('table.date'),
         accessor: 'date',
-        render: (item: TransactionItem) => new Date(item.timestamp).toLocaleString(),
+        render: (item: TransactionItem) => new Date(item.timestamp * 1000).toLocaleString(),
       },
       {
         label: t('table.value'),
